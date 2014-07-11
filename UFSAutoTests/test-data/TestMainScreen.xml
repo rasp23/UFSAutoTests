@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<test-config xmlns="http://utils.applique.com">	
+	<test name="testSetLanguage">
+		<case>			
+		    <parameter>RUSSIAN</parameter>
+		    <parameter>Мои билеты</parameter>
+		</case>		
+		<case>			
+		    <parameter>GERMAN</parameter>
+		    <parameter>Meine Fahrkarten</parameter>		    
+		</case>	
+		<case>			
+		    <parameter>ENGLISH</parameter>
+		    <parameter>My tickets</parameter>
+		</case>	
+	</test>		
+	<test name="testSuccessfullSearch">
+		<case>		
+		    <parameter>Search002</parameter>		    
+		</case>		
+	</test>		
+</test-config>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<test-data xmlns="http://utils.applique.com">
+	<data name="Search001">
+		<properties>
+			<property name="departure">Moscow</property>
+			<property name="destination">Minsk</property>
+			<property name="departureDate">10</property>
+			<property name="departureTime">02:00 - 20:00</property>
+			<property name="adults">2</property>
+			<property name="children">1</property>
+			<property name="infants">1</property>
+		</properties>
+	</data>	
+	<data name="Search002">
+		<properties>
+			<property name="departure">Moscow</property>
+			<property name="destination">Kazan</property>
+			<property name="departureDate">45</property>
+			<property name="departureTime">0:00 - 24:00</property>
+			<property name="adults">1</property>
+			<property name="children">1</property>
+			<property name="infants">0</property>
+		</properties>
+	</data>	
+</test-data>

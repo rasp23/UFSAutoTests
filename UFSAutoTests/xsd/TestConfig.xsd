@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema targetNamespace="http://utils.zabbkit.ru"
+			elementFormDefault="qualified" 
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="test-config">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="set-up" minOccurs="0" maxOccurs="1">
+    				<xsd:complexType>
+    					<xsd:sequence>
+							<xsd:element name="parameter" minOccurs="0" maxOccurs="unbounded">
+				           <xsd:complexType>
+				            <xsd:simpleContent>
+				             <xsd:extension base="xsd:string">
+				              <xsd:attribute name="name" type="xsd:string"/>
+				             </xsd:extension>
+				            </xsd:simpleContent>
+				           </xsd:complexType>
+				          </xsd:element>
+    					</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+    			<xsd:element name="test" minOccurs="1" maxOccurs="unbounded">
+    				<xsd:complexType>
+    					<xsd:sequence>
+    						<xsd:element name="case" minOccurs="1" maxOccurs="unbounded">
+    							<xsd:complexType>
+    								<xsd:sequence>
+			    						<xsd:element name="parameter" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+    								</xsd:sequence>
+					    			<xsd:attribute name="group" type="xsd:string" default="all"/>
+					    			<xsd:attribute name="id" type="xsd:string"/>
+    							</xsd:complexType>
+    						</xsd:element>
+		    			</xsd:sequence>
+		    			<xsd:attribute name="name" type="xsd:string"/>
+	    			</xsd:complexType>
+    			</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>  
+</xsd:schema>

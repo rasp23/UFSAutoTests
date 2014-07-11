@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Run Test" default="run_test" basedir=".">
+	
+	<property name="src" location="src"/>
+	<property name="lib" location="lib"/>
+	<property name="build" location="build"/>
+	<property name="snapshots" location="snapshots"/>
+	<property name="test-output" location="test-output"/>
+	<property name="test-data" location="test-data"/>
+
+    <path id="run.cp">
+        <pathelement path="build"/>
+        <pathelement path="lib"/>
+        <fileset dir="lib/">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="run_test" description="Start Proxy ; Run TestNG ; stop Proxy">
+        <antcall target="run_appium"></antcall>
+    	<antcall target="compile"></antcall>
+        <antcall target="run_testNG"></antcall>
+        <antcall target="email"></antcall>
+    </target>
+
+    <target name="run_testNG" description="Run TestNG">
+        <testng classpathref="run.cp" outputdir="${test-output}" haltOnfailure="false" useDefaultListeners="true" listeners="org.uncommons.reportng.HTMLReporter,org.uncommons.reportng.JUnitXMLReporter">
+            <xmlfileset dir="${test-data}/xmlTestSuites" includes="*.xml"/>
+            <sysproperty key="org.uncommons.reportng.locale" value="en_US"/>
+        </testng>
+    </target>    
+	
+	<target name="check">
+		<condition property="deldir">
+	    	<available file="${build}" type="dir"/>
+		</condition>
+	</target>
+
+	<target name="deldir" depends="check" if="deldir">
+		<delete dir="${build}"/>		
+		<delete dir="${snapshots}"/>
+		<delete dir="${test-output}"/>
+		<delete file="methods.txt"/>
+		<delete file="snapshots.txt"/>
+	</target>
+	
+	<target name="run_appium">
+	    <exec executable="/usr/local/bin/appium" spawn="true">
+	    	<arg value="--full-reset"/>
+	    </exec>	
+	    <sleep seconds="10"/>
+    </target>
+	
+	<target name="compile"  depends="deldir" description="compile the source ">	
+		<mkdir dir="${build}"/>
+	    <javac srcdir="${src}" destdir="${build}">
+	    	<classpath refid="run.cp"/>	
+	    </javac>
+	</target>
+	
+	<target name="timestamp">
+		<tstamp>
+			<format property="TEST_RESULTS_DATE" pattern="dd/MM/yyyy hh:mm:ss a z" timezone="GMT+3" locale="en,US"/>
+		</tstamp>
+	</target>
+	
+	<target name="make_links">
+		<java classpathref="run.cp" classname="com.applique.utils.LinksMaker">			
+		</java>
+	</target>
+	
+	<target name="email" depends="timestamp">
+		<mail mailhost="madcat.cs" mailport="25" user="" password="" subject="[Buildsrv] Test results ${TEST_RESULTS_DATE}" messagefile="test-output/html/overview.html" messagemimetype="text/html">		    				
+			<from address="rasp23@gmail.com"/>	  	
+		  	<to address="nikolay.rasputin@cactussoft.biz"/>     		
+			<attachments>				
+				<fileset dir="${test-output}">
+					<include name="emailable-report.html"/>
+					<include name="html/output.html"/>
+				</fileset>							    
+			</attachments>
+		</mail>
+	</target>
+	
+    <taskdef resource="testngtasks" classpath="${lib}/testng-6.8.jar" /> 
+    
+    <path id="mail.path">
+    	<pathelement location="${lib}/mail.jar"/>
+    	<pathelement location="${lib}/ant-javamail-1.6.5.jar"/>
+    </path>
+       
+    <!-- http://enitsys.sourceforge.net/ant-classloadertask/ -->
+	<taskdef name="classloadertask" classname="org.apache.tools.ant.taskdefs.ClassloaderTask" classpath="${lib}/ant-classloadertask.jar"/> 
+	<classloadertask classpathRef="mail.path" loader="thread"/>
+
+</project>
