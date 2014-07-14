@@ -1,5 +1,8 @@
 package ru.ufsonline.eticket.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Utils {
 	
 	public static void sleep(long millis) {
@@ -37,5 +40,23 @@ public class Utils {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static List<String> getList(String data, String separator) {
+	    if (data.equals(""))
+	        return new ArrayList<String>();
+		String[] str = data.split(separator, -1);
+		List<String> lst = new ArrayList<String>();
+		for (int i = 0; i < str.length; i++) {
+			lst.add(str[i].trim());
+		}
+		return lst;
+	}
+
+	public static List<String> getList(String data) {
+		if ("null".equalsIgnoreCase(data) || "".equalsIgnoreCase(data)) {
+			return new ArrayList<String>();
+		}
+		return getList(data, ",");
 	}
 }

@@ -1,6 +1,7 @@
 package ru.ufsonline.eticket.tests;
 
 import java.lang.reflect.Method;
+import java.util.List;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -22,7 +23,7 @@ public class TestRoute extends TestBase {
 	}	
 	
 	@Test(dataProvider="GlobalProvider", dataProviderClass=GlobalProvider.class)
-	public void testPickerDates(String expectedSize) {
+	public void testPickerDates(String expectedSize, String listOfItems) {		
 		routeScreen.verifyPickerDates(routeScreen.getPickerDates(), Integer.valueOf(expectedSize));
 	}
 	

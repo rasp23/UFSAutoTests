@@ -43,7 +43,8 @@ public class TestBase {
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setCapability(CapabilityType.VERSION, config.getProperty("version"));
 		capabilities.setCapability(CapabilityType.PLATFORM, config.getProperty("platform"));
-		capabilities.setCapability("device", config.getProperty("device"));
+		capabilities.setCapability("platformName", config.getProperty("iOS"));
+		capabilities.setCapability("deviceName", config.getProperty("device"));
 		capabilities.setCapability("app", config.getProperty("app_path"));
 		AppiumSession.uiMap = new PropertiesUtil(CommonConstants.UIMAP);		
 		

@@ -6,7 +6,8 @@
 	</test>		
 	<test name="testPickerDates">
 		<case>
-		    <parameter>60</parameter>				    		    
+		    <parameter>60</parameter>				 
+		    <parameter>item1,item2,item3</parameter>   		    
 		</case>		
 	</test>	
 	<test name="testSetTime">

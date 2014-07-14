@@ -12,7 +12,7 @@ public class SeatScreen extends BaseScreen {
 	
 	private WebElement rangePickerFrom;
 	
-	private WebElement rangePickerTill;
+	private WebElement rangePickerTo;
 	
 	private Toolbar toolbar;
 
@@ -25,16 +25,21 @@ public class SeatScreen extends BaseScreen {
 		rangeButton = ad.findElementByXPath(uiMap.getProperty("seat.range_btn"));
 		rangeButton.click();
 		rangePickerFrom = ad.findElementByXPath(uiMap.getProperty("seat.range_from"));
-		rangePickerTill = ad.findElementByXPath(uiMap.getProperty("seat.range_till"));
+		rangePickerTo = ad.findElementByXPath(uiMap.getProperty("seat.range_to"));
 	}
 	
-	public void pickRange(String from, String till) {
+	public void pickRange(String from, String to) {
 		invokeRangePicker();
-		String tmpp = rangePickerFrom.getAttribute("values");
-		String tmp = rangePickerFrom.getAttribute("value");
-		String tmppp = rangePickerTill.getAttribute("values");
+//		if (!from.equals("1")) {
+//			from = " " + from; 
+//		}
+//		if (!to.equals("1")) {
+//			to = " " + to; 
+//		}
+//		String tmp = rangePickerFrom.getAttribute("values");
+//		String ttmp = rangePickerFrom.getAttribute("value");
+//		rangePickerFrom.sendKeys("from");
 		rangePickerFrom.sendKeys(from);
-		rangePickerTill.sendKeys(till);
 		toolbar.ready();
 	}
 }
