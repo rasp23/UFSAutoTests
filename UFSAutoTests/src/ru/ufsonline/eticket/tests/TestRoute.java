@@ -73,8 +73,16 @@ public class TestRoute extends TestBase {
 		
 	@Test(dataProvider = "GlobalProvider", dataProviderClass = GlobalProvider.class)
 	public void testSwapPoints(String departureStation, String destinationStation){
-		routeScreen.typeDeparture(destinationStation);
+		routeScreen.typeDeparture(departureStation);
 		routeScreen.typeDestination(destinationStation);
-		
+		routeScreen.swapAndVerifyLocations();
+	}
+	
+	@Test(dataProvider = "GlobalProvider", dataProviderClass = GlobalProvider.class)
+	public void testTextMessageSamePoints(String departureStation, String destinationStation){
+		routeScreen.typeDeparture(departureStation);
+		routeScreen.typeDestination(destinationStation);
+		routeScreen.tapFindWithMessage();
+		routeScreen.verifyMessageApp();
 	}
 }

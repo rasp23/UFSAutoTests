@@ -42,5 +42,17 @@
 			<parameter>Ка</parameter>
 			<parameter>Казань, Карабула, Канаш </parameter>
 		</case> -->
+	</test>
+	<test name="testSwapPoints">
+		<case>
+			<parameter>Moscow</parameter>
+			<parameter>Kazan</parameter>
+		</case>
+	</test>
+	<test name="testTextMessageSamePoints">
+		<case>
+			<parameter>Kazan</parameter>
+			<parameter>Kazan</parameter>
+		</case>
 	</test>	
 </test-config>
