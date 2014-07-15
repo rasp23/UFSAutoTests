@@ -256,45 +256,61 @@ public class RouteScreen extends NavBarScreen {
 		setInfants(searchProps.getInfants());
 	}
 
-	public RouteScreen clearDeparture() {
-		clearField = ad.findElement(By.xpath(uiMap.getProperty("route.destinationClearField")));
+	public void clearDeparture() {
+		departure = ad.findElement(By.xpath(uiMap.getProperty("route.departure")));
+		departure.click();
+		clearField = ad.findElement(By.xpath(uiMap.getProperty("route.departureClearField")));
 		clearField.click();
-		return this;
 	}
 	
-	public RouteScreen clearDestination() {
+	public void  clearDestination() {
+		destination = ad.findElement(By.xpath(uiMap.getProperty("route.destination")));
+		destination.click();
 		clearField = ad.findElement(By.xpath(uiMap.getProperty("route.destinationClearField")));
 		clearField.click();
-		return this;
+	}
+	
+	public void setDeparture(String station){
+		departure = ad.findElement(By.xpath(uiMap.getProperty("route.departure")));
+		departure.sendKeys(station);
+	}
+	
+	public void setDestination(String station){
+		destination = ad.findElement(By.xpath(uiMap.getProperty("route.destination")));
+		destination.sendKeys(station);
 	}
 
-	public void verifyDepartureStation(List<String> expectedDepartureStationLst) {
+	public RouteScreen verifyDepartureStation(List<String> expectedDepartureStationLst) {
 		List<String> hintDepartureLst = new ArrayList<String>();
 		int hintNum = 3;
 		
 		for (int i = 1; i <= hintNum; i++){
-			String hintDeparture = ad.findElement(By.xpath(uiMap.getProperty("route.departureHint[" + Integer.toString(i) + "]" ))).getText();
+			String hintLoc = uiMap.getProperty("route.departureHint").replace("NUM", String.valueOf(i));
+			String hintDeparture = ad.findElement(By.xpath(hintLoc)).getAttribute("name");
 			hintDepartureLst.add(hintDeparture);
 		}
 		
 		for (int i = 0; i <hintNum-1; i++) {
 			Assert.assertEquals(hintDepartureLst.get(i), expectedDepartureStationLst.get(i), "Departure hints are not as expected!");
-		}
 		
+		}
+		return this;
 	}
 	
-	public void verifyDestinationStation(List<String> expectedDestinationStationLst) {
+	public RouteScreen verifyDestinationStation(List<String> expectedDestinationStationLst) {
 		List<String> hintDestinationLst = new ArrayList<String>();
 		int hintNum = 3;
 		
 		for (int i = 1; i <= hintNum; i++){
-			String hintDeparture = ad.findElement(By.xpath(uiMap.getProperty("route.destinationHint[" + Integer.toString(i) + "]" ))).getText();
-			hintDestinationLst.add(hintDeparture);
+			String hintLoc = uiMap.getProperty("route.destinationHint").replace("NUM", String.valueOf(i));
+			String hintDestination = ad.findElement(By.xpath(hintLoc)).getAttribute("name");
+			hintDestinationLst.add(hintDestination);
 		}
 		
 		for (int i = 0; i <hintNum-1; i++) {
 			Assert.assertEquals(hintDestinationLst.get(i), expectedDestinationStationLst.get(i), "Destination hints are not as expected!");
 		}
+		return this;
 	}
 
 }

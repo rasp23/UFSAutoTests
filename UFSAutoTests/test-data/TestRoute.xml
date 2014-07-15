@@ -28,11 +28,19 @@
 			<parameter>Mo</parameter>
 			<parameter>Moscow, Moore, Mogilev</parameter>
 		</case>
+   <!-- <case>
+			<parameter>Мо</parameter>
+			<parameter>Москва, Могилев, Можга</parameter>
+		</case> -->
 	</test>
 	<test name="testHintDestination">
 		<case>
 			<parameter>Ka</parameter>
 			<parameter>Kazan, Karabula, Kaluga</parameter>
 		</case>
+	<!-- <case>
+			<parameter>Ка</parameter>
+			<parameter>Казань, Карабула, Канаш </parameter>
+		</case> -->
 	</test>	
 </test-config>
