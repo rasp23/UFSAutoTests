@@ -22,6 +22,12 @@ public class RouteScreen extends NavBarScreen {
 	
 	private WebElement destination;
 	
+	//private WebElement hintDeparture;
+	
+	private WebElement hintDestination;
+	
+	private WebElement clearField;
+	
 	private WebElement dateField;
 	
 	private WebElement dateButton;
@@ -249,4 +255,46 @@ public class RouteScreen extends NavBarScreen {
 		setChildren(searchProps.getChildren());
 		setInfants(searchProps.getInfants());
 	}
+
+	public RouteScreen clearDeparture() {
+		clearField = ad.findElement(By.xpath(uiMap.getProperty("route.destinationClearField")));
+		clearField.click();
+		return this;
+	}
+	
+	public RouteScreen clearDestination() {
+		clearField = ad.findElement(By.xpath(uiMap.getProperty("route.destinationClearField")));
+		clearField.click();
+		return this;
+	}
+
+	public void verifyDepartureStation(List<String> expectedDepartureStationLst) {
+		List<String> hintDepartureLst = new ArrayList<String>();
+		int hintNum = 3;
+		
+		for (int i = 1; i <= hintNum; i++){
+			String hintDeparture = ad.findElement(By.xpath(uiMap.getProperty("route.departureHint[" + Integer.toString(i) + "]" ))).getText();
+			hintDepartureLst.add(hintDeparture);
+		}
+		
+		for (int i = 0; i <hintNum-1; i++) {
+			Assert.assertEquals(hintDepartureLst.get(i), expectedDepartureStationLst.get(i), "Departure hints are not as expected!");
+		}
+		
+	}
+	
+	public void verifyDestinationStation(List<String> expectedDestinationStationLst) {
+		List<String> hintDestinationLst = new ArrayList<String>();
+		int hintNum = 3;
+		
+		for (int i = 1; i <= hintNum; i++){
+			String hintDeparture = ad.findElement(By.xpath(uiMap.getProperty("route.destinationHint[" + Integer.toString(i) + "]" ))).getText();
+			hintDestinationLst.add(hintDeparture);
+		}
+		
+		for (int i = 0; i <hintNum-1; i++) {
+			Assert.assertEquals(hintDestinationLst.get(i), expectedDestinationStationLst.get(i), "Destination hints are not as expected!");
+		}
+	}
+
 }

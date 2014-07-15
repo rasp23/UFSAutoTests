@@ -6,8 +6,7 @@
 	</test>		
 	<test name="testPickerDates">
 		<case>
-		    <parameter>60</parameter>				 
-		    <parameter>item1,item2,item3</parameter>   		    
+		    <parameter>60</parameter>				    		    
 		</case>		
 	</test>	
 	<test name="testSetTime">
@@ -22,6 +21,18 @@
 		</case>
 		<case>
 		    <parameter>00:00 - 20:00</parameter>				    		    
+		</case>
+	</test>
+	<test name="testHintDeparture">
+		<case>
+			<parameter>Mo</parameter>
+			<parameter>Moscow, Moore, Mogilev</parameter>
+		</case>
+	</test>
+	<test name="testHintDestination">
+		<case>
+			<parameter>Ka</parameter>
+			<parameter>Kazan, Karabula, Kaluga</parameter>
 		</case>
 	</test>	
 </test-config>
