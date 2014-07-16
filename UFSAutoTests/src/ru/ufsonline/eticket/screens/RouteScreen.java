@@ -14,13 +14,18 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-import ru.ufsonline.eticket.objects.SearchProperties;
+import ru.ufsonline.eticket.properties.SearchProperties;
+import ru.ufsonline.eticket.utils.Utils;
 
 public class RouteScreen extends NavBarScreen {
 	
 	private WebElement departure;
 	
 	private WebElement destination;
+	
+	private WebElement swapBtn;
+	
+	private WebElement clearField;
 	
 	private WebElement dateField;
 	
@@ -64,6 +69,8 @@ public class RouteScreen extends NavBarScreen {
 	
 	public void typeDeparture(String station) {
 		departure = ad.findElement(By.xpath(uiMap.getProperty("route.departure")));
+		departure.click();
+		Utils.sleep(3000, "Waiting for the screen");
 		departure.sendKeys(station);
 		ready = ad.findElementByAccessibilityId((uiMap.getProperty("ready")));
 		ready.click();
@@ -71,7 +78,11 @@ public class RouteScreen extends NavBarScreen {
 	
 	public void typeDestination(String station) {
 		destination = ad.findElement(By.xpath(uiMap.getProperty("route.destination")));
+		destination.click();
+		Utils.sleep(3000, "Waiting for the screen");;
 		destination.sendKeys(station);
+		ready = ad.findElementByAccessibilityId((uiMap.getProperty("ready")));
+		ready.click();
 	}
 	
 	public void invokePicker() {
@@ -249,4 +260,87 @@ public class RouteScreen extends NavBarScreen {
 		setChildren(searchProps.getChildren());
 		setInfants(searchProps.getInfants());
 	}
+
+	public void clearDeparture() {
+		departure = ad.findElement(By.xpath(uiMap.getProperty("route.departure")));
+		departure.click();
+		clearField = ad.findElement(By.xpath(uiMap.getProperty("route.departureClearField")));
+		clearField.click();
+	}
+	
+	public void  clearDestination() {
+		destination = ad.findElement(By.xpath(uiMap.getProperty("route.destination")));
+		destination.click();
+		clearField = ad.findElement(By.xpath(uiMap.getProperty("route.destinationClearField")));
+		clearField.click();
+	}
+	
+	public void setDeparture(String station){
+		departure = ad.findElement(By.xpath(uiMap.getProperty("route.departure")));
+		departure.sendKeys(station);
+	}
+	
+	public void setDestination(String station){
+		destination = ad.findElement(By.xpath(uiMap.getProperty("route.destination")));
+		destination.sendKeys(station);
+	}
+
+	public RouteScreen verifyDepartureStation(List<String> expectedDepartureStationLst) {
+		List<String> hintDepartureLst = new ArrayList<String>();
+		int hintNum = 3;
+		
+		for (int i = 1; i <= hintNum; i++){
+			String hintLoc = uiMap.getProperty("route.departureHint").replace("NUM", String.valueOf(i));
+			String hintDeparture = ad.findElement(By.xpath(hintLoc)).getAttribute("name");
+			hintDepartureLst.add(hintDeparture);
+		}
+		
+		for (int i = 0; i <hintNum-1; i++) {
+			Assert.assertEquals(hintDepartureLst.get(i), expectedDepartureStationLst.get(i), "Departure hints are not as expected!");
+		
+		}
+		return this;
+	}
+	
+	public RouteScreen verifyDestinationStation(List<String> expectedDestinationStationLst) {
+		List<String> hintDestinationLst = new ArrayList<String>();
+		int hintNum = 3;
+		
+		for (int i = 1; i <= hintNum; i++){
+			String hintLoc = uiMap.getProperty("route.destinationHint").replace("NUM", String.valueOf(i));
+			String hintDestination = ad.findElement(By.xpath(hintLoc)).getAttribute("name");
+			hintDestinationLst.add(hintDestination);
+
+		}
+		
+		for (int i = 0; i <hintNum-1; i++) {
+			Assert.assertEquals(hintDestinationLst.get(i), expectedDestinationStationLst.get(i), "Destination hints are not as expected!");
+		}
+		return this;
+	}
+
+	public RouteScreen swapAndVerifyLocations() {
+		String departureTxt = departure.getText();
+		String destinationTxt = destination.getText();
+		swapBtn = ad.findElement(By.name(uiMap.getProperty("route.swapButton")));
+		swapBtn.click();
+		//ad.tap(1, swapBtn, 2);
+		Assert.assertEquals(ad.findElement(By.xpath(uiMap.getProperty("route.departure"))).getText(), destinationTxt, "Swap isn't working properly");
+		Assert.assertEquals(ad.findElement(By.xpath(uiMap.getProperty("route.destination"))).getText(), departureTxt, "Swap isn't working properly");
+		return this;
+	}
+	
+	public RouteScreen tapFindWithMessage() {
+		find = ad.findElement(By.xpath(uiMap.getProperty("route.search")));
+		find.click();
+		return this;
+	}
+
+	public RouteScreen verifyMessageApp() {
+		String textLoc = uiMap.getProperty("route.messagePointsOverlap");
+		String textMsg = ad.findElement(By.xpath(textLoc)).getText();
+		Assert.assertEquals(textMsg, "Departure and destination stations are the same", "Text message is another!");
+		return this;
+	}
+
 }
