@@ -53,6 +53,12 @@
 		<case>
 			<parameter>Kazan</parameter>
 			<parameter>Kazan</parameter>
+			<parameter>Departure and destination stations are the same </parameter>
+		</case>
+		<case>
+			<parameter>Tula</parameter>
+			<parameter>Saratov</parameter>
+			<parameter>No direct route between indicated stations was found</parameter>
 		</case>
 	</test>	
 </test-config>

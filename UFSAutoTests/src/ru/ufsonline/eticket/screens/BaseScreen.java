@@ -54,4 +54,21 @@ public class BaseScreen {
 		Utils.sleep(AppiumSession.timeout/30);
 		element.sendKeys(text);
 	}
+
+	public void goToKeyboard(){
+		String keyOne;
+		keyOne = ad.findElement(By.xpath(uiMap.getProperty("route.keyboardKey"))).getAttribute("label");
+		while (!keyOne.equals("q")){
+			String loc = "//UIAButton[contains(@label,'Next keyboard')]";
+			WebElement changeKeyboard = ad.findElement(By.xpath(loc));
+			changeKeyboard.click();
+			logger.info("Tapped change keyboard button");
+			keyOne = ad.findElement(By.xpath(uiMap.getProperty("route.keyboardKey"))).getAttribute("label");
+		}
+	
+	}
+	public void sendEnglish(WebElement el, String sequence){
+		goToKeyboard();
+		el.sendKeys(sequence);
+	}
 }

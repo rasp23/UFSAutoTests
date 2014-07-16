@@ -65,24 +65,30 @@ public class RouteScreen extends NavBarScreen {
 	
 	private Toolbar toolbar;
 
+
+	
 	public RouteScreen(AppiumDriver ad) {
 		super(ad);		
 		toolbar = new Toolbar(ad);
 	}
-	
+
 	public void typeDeparture(String station) {
 		departure = ad.findElement(By.xpath(uiMap.getProperty("route.departure")));
 		departure.click();
-		Utils.sleep(3000, "Waiting for the screen");
-		departure.sendKeys(station);
+		//goToNeededKeyboard();
+		//Utils.sleep(3000, "Avoiding JS error");
+		//departure.sendKeys(station);
+		sendEnglish(departure, station);
 		toolbar.ready();
 	}
 	
 	public void typeDestination(String station) {
 		destination = ad.findElement(By.xpath(uiMap.getProperty("route.destination")));
 		destination.click();
-		Utils.sleep(3000, "Waiting for the screen");;
-		destination.sendKeys(station);
+		//goToNeededKeyboard();
+		//Utils.sleep(3000, "Avoiding JS error");;
+		//destination.sendKeys(station);
+		sendEnglish(destination, station);
 		toolbar.ready();
 	}
 	
@@ -277,11 +283,15 @@ public class RouteScreen extends NavBarScreen {
 	
 	public void setDeparture(String station){
 		departure = ad.findElement(By.xpath(uiMap.getProperty("route.departure")));
+		departure.click();
+		Utils.sleep(5000, "Avoiding JS error");
 		departure.sendKeys(station);
 	}
 	
 	public void setDestination(String station){
 		destination = ad.findElement(By.xpath(uiMap.getProperty("route.destination")));
+		destination.click();
+		Utils.sleep(3000, "Avoiding JS error");
 		destination.sendKeys(station);
 	}
 
@@ -324,7 +334,6 @@ public class RouteScreen extends NavBarScreen {
 		String destinationTxt = destination.getText();
 		swapBtn = ad.findElement(By.name(uiMap.getProperty("route.swapButton")));
 		swapBtn.click();
-		logger.info("Tapped on swap");
 		//ad.tap(1, swapBtn, 2);
 		Assert.assertEquals(ad.findElement(By.xpath(uiMap.getProperty("route.departure"))).getText(), destinationTxt, "Swap isn't working properly");
 		Assert.assertEquals(ad.findElement(By.xpath(uiMap.getProperty("route.destination"))).getText(), departureTxt, "Swap isn't working properly");
@@ -337,18 +346,18 @@ public class RouteScreen extends NavBarScreen {
 		return this;
 	}
 
-	public RouteScreen verifyMessageApp() {
-//		String textLoc = uiMap.getProperty("route.messagePointsOverlap");
-//		String textMsg = ad.findElement(By.xpath(textLoc)).getText();
+	public RouteScreen verifyMessageApp(String expectedText) {
 		String loc = "//UIAStaticText[contains(@label,'TEXT')]";
-		String text = "Departure and destination stations are the same";
+		//String text = "Departure and destination stations are the same";
 		try {
-			ad.findElementByXPath(loc.replace("TEXT", text));			
+			ad.findElementByXPath(loc.replace("TEXT", expectedText));			
 		} catch(Exception e) {
 			Assert.fail();
 		}		
 		
 		return this;
 	}
+	
+	
 
 }

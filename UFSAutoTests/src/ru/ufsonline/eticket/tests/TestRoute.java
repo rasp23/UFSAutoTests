@@ -38,7 +38,7 @@ public class TestRoute extends TestBase {
 	
 	@AfterMethod
 	public void afterMethod(Method m) {
-		if ((m.getName().equals("testSetTime"))){
+		if ((m.getName().equals("testSetTime")) || m.getName().equals("testTextMessageSamePoints")){
 			routeScreen.back();	
 			mainScreen.tapPurchase();
 		}
@@ -79,10 +79,13 @@ public class TestRoute extends TestBase {
 	}
 	
 	@Test(dataProvider = "GlobalProvider", dataProviderClass = GlobalProvider.class)
-	public void testTextMessageSamePoints(String departureStation, String destinationStation){
+	public void testTextMessageSamePoints(String departureStation, String destinationStation, String msg){
 		routeScreen.typeDeparture(departureStation);
 		routeScreen.typeDestination(destinationStation);
 		routeScreen.tapFindWithMessage();
-		routeScreen.verifyMessageApp();
+		Utils.sleep(2000,"Waiting for search results");
+		routeScreen.verifyMessageApp(msg);
 	}
+
+	
 }
