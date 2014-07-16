@@ -2,7 +2,7 @@ package ru.ufsonline.eticket.objects;
 
 import ru.ufsonline.eticket.utils.TestObject;
 
-public class AdultPassenger {
+public class Passenger {
 	
 	private String surname;
 	
@@ -28,19 +28,19 @@ public class AdultPassenger {
 	
 	private boolean onlineCheckin;
 	
-	public AdultPassenger(TestObject passengerInfo) {
-		this.surname = passengerInfo.getProperty("surname");
-		this.name = passengerInfo.getProperty("name");
-		this.secondName = passengerInfo.getProperty("secondName");
-		this.idDocType = passengerInfo.getProperty("idDocType");
-		this.docNumber = passengerInfo.getProperty("docNumber");
-		this.gender = passengerInfo.getProperty("gender");
-		this.bithDate = passengerInfo.getProperty("bithDate");
-		this.countryOfDocIssue = passengerInfo.getProperty("countryOfDocIssue");
-		this.bithPlace = passengerInfo.getProperty("bithPlace");
-		this.email = passengerInfo.getProperty("email");
-		this.phone = passengerInfo.getProperty("phone");
-		this.onlineCheckin = Boolean.valueOf(passengerInfo.getProperty("onlineCheckin"));
+	public Passenger(TestObject passenger) {
+		this.surname = passenger.getProperty("surname");
+		this.name = passenger.getProperty("name");
+		this.secondName = passenger.getProperty("secondName");
+		this.idDocType = passenger.getProperty("idDocType");
+		this.docNumber = passenger.getProperty("docNumber");
+		this.gender = passenger.getProperty("gender");
+		this.bithDate = passenger.getProperty("birthDate");
+		this.countryOfDocIssue = passenger.getProperty("countryOfDocIssue");
+		this.bithPlace = passenger.getProperty("bithPlace");
+		this.email = passenger.getProperty("email");
+		this.phone = passenger.getProperty("phone");
+		this.onlineCheckin = Boolean.valueOf(passenger.getProperty("onlineCheckin"));
 	}
 
 	public String getSurname() {
