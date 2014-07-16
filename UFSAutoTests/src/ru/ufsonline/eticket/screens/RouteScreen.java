@@ -62,9 +62,12 @@ public class RouteScreen extends NavBarScreen {
 	private WebElement ready;
 	
 	private final String DATE_PATTERN = "E d MMMM, yyyy"; 
+	
+	private Toolbar toolbar;
 
 	public RouteScreen(AppiumDriver ad) {
 		super(ad);		
+		toolbar = new Toolbar(ad);
 	}
 	
 	public void typeDeparture(String station) {
@@ -72,8 +75,7 @@ public class RouteScreen extends NavBarScreen {
 		departure.click();
 		Utils.sleep(3000, "Waiting for the screen");
 		departure.sendKeys(station);
-		ready = ad.findElementByAccessibilityId((uiMap.getProperty("ready")));
-		ready.click();
+		toolbar.ready();
 	}
 	
 	public void typeDestination(String station) {
@@ -81,8 +83,7 @@ public class RouteScreen extends NavBarScreen {
 		destination.click();
 		Utils.sleep(3000, "Waiting for the screen");;
 		destination.sendKeys(station);
-		ready = ad.findElementByAccessibilityId((uiMap.getProperty("ready")));
-		ready.click();
+		toolbar.ready();
 	}
 	
 	public void invokePicker() {
@@ -95,8 +96,7 @@ public class RouteScreen extends NavBarScreen {
 		Assert.assertTrue((shift >= -1) && (shift <= 58), "Verify test data: '-1<=shift<=58' !");
 		invokePicker();
 		datePicker.sendKeys(getRequiredDate(shift));
-		ready = ad.findElementByAccessibilityId((uiMap.getProperty("ready")));
-		ready.click();
+		toolbar.ready();
 	}
 	
 	public String getPickerDates() {
@@ -324,6 +324,7 @@ public class RouteScreen extends NavBarScreen {
 		String destinationTxt = destination.getText();
 		swapBtn = ad.findElement(By.name(uiMap.getProperty("route.swapButton")));
 		swapBtn.click();
+		logger.info("Tapped on swap");
 		//ad.tap(1, swapBtn, 2);
 		Assert.assertEquals(ad.findElement(By.xpath(uiMap.getProperty("route.departure"))).getText(), destinationTxt, "Swap isn't working properly");
 		Assert.assertEquals(ad.findElement(By.xpath(uiMap.getProperty("route.destination"))).getText(), departureTxt, "Swap isn't working properly");
@@ -337,9 +338,16 @@ public class RouteScreen extends NavBarScreen {
 	}
 
 	public RouteScreen verifyMessageApp() {
-		String textLoc = uiMap.getProperty("route.messagePointsOverlap");
-		String textMsg = ad.findElement(By.xpath(textLoc)).getText();
-		Assert.assertEquals(textMsg, "Departure and destination stations are the same", "Text message is another!");
+//		String textLoc = uiMap.getProperty("route.messagePointsOverlap");
+//		String textMsg = ad.findElement(By.xpath(textLoc)).getText();
+		String loc = "//UIAStaticText[contains(@label,'TEXT')]";
+		String text = "Departure and destination stations are the same";
+		try {
+			ad.findElementByXPath(loc.replace("TEXT", text));			
+		} catch(Exception e) {
+			Assert.fail();
+		}		
+		
 		return this;
 	}
 
