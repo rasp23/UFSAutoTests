@@ -16,6 +16,7 @@ import ru.ufsonline.eticket.common.AppiumSession;
 import ru.ufsonline.eticket.logger.Logger;
 import ru.ufsonline.eticket.logger.LoggerFactory;
 import ru.ufsonline.eticket.utils.PropertiesUtil;
+import ru.ufsonline.eticket.utils.Utils;
 
 public class BaseScreen {
 	
@@ -24,9 +25,11 @@ public class BaseScreen {
 	protected PropertiesUtil uiMap = AppiumSession.uiMap;
 	
 	protected Logger logger = LoggerFactory.getLogger();	
+	
+	protected Toolbar toolbar;	
 
 	public BaseScreen(AppiumDriver ad) {
-		this.ad = ad; 
+		this.ad = ad;		
 	}	
 	
 	public void verifyText(WebElement element, String expectedText) {		
@@ -46,4 +49,9 @@ public class BaseScreen {
 		js.executeScript("mobile: scroll", scrollObject);
 	}
 	
+	public void sendKeysWithClick(WebElement element, String text) {
+		element.click();
+		Utils.sleep(AppiumSession.timeout/30);
+		element.sendKeys(text);
+	}
 }

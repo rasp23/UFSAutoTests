@@ -1,4 +1,4 @@
-package ru.ufsonline.eticket.properties;
+package ru.ufsonline.eticket.objects;
 
 import ru.ufsonline.eticket.utils.TestObject;
 

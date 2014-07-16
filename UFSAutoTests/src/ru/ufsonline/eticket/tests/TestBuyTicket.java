@@ -2,7 +2,7 @@ package ru.ufsonline.eticket.tests;
 
 import org.testng.annotations.Test;
 
-import ru.ufsonline.eticket.properties.SearchProperties;
+import ru.ufsonline.eticket.objects.SearchProperties;
 import ru.ufsonline.eticket.utils.GlobalProvider;
 import ru.ufsonline.eticket.utils.TestObject;
 
@@ -13,7 +13,8 @@ public class TestBuyTicket extends TestBase {
 	} 
 	
 	@Test(dataProvider="GlobalProvider", dataProviderClass=GlobalProvider.class)
-	public void testSuccessfullSearch(String paramSearchProps, String expectedTrain, String carType, String carNumber, String seatFrom, String seatTill) {	
+	public void testSuccessfullSearch(String paramSearchProps, String expectedTrain, String carType, String carNumber, String seatFrom, String seatTo, 
+			String level) {	
 		TestObject searchProps = new TestObject(paramSearchProps);
 		
 		routeScreen = mainScreen.tapPurchase();
@@ -23,6 +24,9 @@ public class TestBuyTicket extends TestBase {
 		carScreen = trainScreen.selectCarType(trainIndex, carType);
 		carScreen.selectCar(carNumber);
 		seatScreen = carScreen.selectSeat().hideHint();
-		seatScreen.pickRange(seatFrom, seatTill);
+//		seatScreen.pickRan(seatFrom, seatTo);
+		seatScreen.pickLocationLevel(level);
+		passengersScreen = seatScreen.clickPassengerData();
+		passengersScreen.typeSurname("Ovtsehuev");
 	}
 }

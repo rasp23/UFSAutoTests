@@ -22,4 +22,20 @@
 			<property name="infants">0</property>
 		</properties>
 	</data>	
+	<data name="Adult001">
+		<properties>
+			<property name="surname">Иванов-Петров Сидоров</property>
+			<property name="name">Иван-Петр Сидор</property>
+			<property name="secondName"></property>
+			<property name="idDocType">RF Passport</property>
+			<property name="docNumber">4511121212</property>
+			<property name="gender">Male</property>
+			<property name="birthDate">June,10,1984</property>
+			<property name="countryOfDocIssue"></property>
+			<property name="bithPlace">Петропавловск Kamchatskiy</property>
+			<property name="email">ufs.test001@gmail.com</property>
+			<property name="phone">45671234443534</property>
+			<property name="onlineCheckin">true</property>
+		</properties>
+	</data>	
 </test-data>

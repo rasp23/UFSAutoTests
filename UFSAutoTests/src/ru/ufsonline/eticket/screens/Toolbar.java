@@ -13,7 +13,7 @@ public class Toolbar extends BaseScreen {
 	}
 	
 	public void ready() {
-		ready = ad.findElementByAccessibilityId((uiMap.getProperty("ready")));
+		ready = ad.findElementByXPath(uiMap.getProperty("toolbar.ready"));
 		ready.click();
 	}
 

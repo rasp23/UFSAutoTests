@@ -14,7 +14,7 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-import ru.ufsonline.eticket.properties.SearchProperties;
+import ru.ufsonline.eticket.objects.SearchProperties;
 
 public class RouteScreen extends NavBarScreen {
 	

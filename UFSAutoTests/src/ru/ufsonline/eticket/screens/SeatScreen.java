@@ -1,10 +1,8 @@
 package ru.ufsonline.eticket.screens;
 
-import java.util.ArrayList;
+import io.appium.java_client.AppiumDriver;
 
 import org.openqa.selenium.WebElement;
-
-import io.appium.java_client.AppiumDriver;
 
 public class SeatScreen extends BaseScreen {
 	
@@ -14,7 +12,11 @@ public class SeatScreen extends BaseScreen {
 	
 	private WebElement rangePickerTo;
 	
-	private Toolbar toolbar;
+	private WebElement levelButton;
+	
+	private WebElement levelPicker;
+	
+	private WebElement passengerData;
 
 	public SeatScreen(AppiumDriver ad) {
 		super(ad);
@@ -28,18 +30,28 @@ public class SeatScreen extends BaseScreen {
 		rangePickerTo = ad.findElementByXPath(uiMap.getProperty("seat.range_to"));
 	}
 	
+	public void invokeLocationLevelPicker() {
+		levelButton = ad.findElementByXPath(uiMap.getProperty("seat.level_btn"));
+		levelButton.click();
+		levelPicker = ad.findElementByXPath(uiMap.getProperty("seat.level_picker"));
+	}
+	
 	public void pickRange(String from, String to) {
-		invokeRangePicker();
-//		if (!from.equals("1")) {
-//			from = " " + from; 
-//		}
-//		if (!to.equals("1")) {
-//			to = " " + to; 
-//		}
-//		String tmp = rangePickerFrom.getAttribute("values");
-//		String ttmp = rangePickerFrom.getAttribute("value");
-//		rangePickerFrom.sendKeys("from");
+		invokeRangePicker();		
 		rangePickerFrom.sendKeys(from);
+		rangePickerTo.sendKeys(to);
 		toolbar.ready();
+	}
+	
+	public void pickLocationLevel(String sLocationLevel) {
+		invokeLocationLevelPicker();
+		levelPicker.sendKeys(sLocationLevel);
+		toolbar.ready();
+	}
+	
+	public PassengersScreen clickPassengerData() {
+		passengerData = ad.findElementByXPath(uiMap.getProperty("seat.passenger_data"));
+		passengerData.click();
+		return new PassengersScreen(ad);
 	}
 }
