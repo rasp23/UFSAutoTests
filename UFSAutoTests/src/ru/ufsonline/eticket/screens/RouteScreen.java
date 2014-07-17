@@ -61,6 +61,8 @@ public class RouteScreen extends NavBarScreen {
 	
 	private WebElement ready;
 	
+	private WebElement clearBtn;
+	
 	private final String DATE_PATTERN = "E d MMMM, yyyy"; 
 	
 	private Toolbar toolbar;
@@ -284,25 +286,28 @@ public class RouteScreen extends NavBarScreen {
 	public void setDeparture(String station){
 		departure = ad.findElement(By.xpath(uiMap.getProperty("route.departure")));
 		departure.click();
-		Utils.sleep(5000, "Avoiding JS error");
+		//Utils.sleep(3000, "Avoiding JS error");
 		departure.sendKeys(station);
 	}
 	
 	public void setDestination(String station){
 		destination = ad.findElement(By.xpath(uiMap.getProperty("route.destination")));
 		destination.click();
-		Utils.sleep(3000, "Avoiding JS error");
+		//Utils.sleep(3000, "Avoiding JS error");
 		destination.sendKeys(station);
 	}
 
-	public RouteScreen verifyDepartureStation(List<String> expectedDepartureStationLst) {
+	public RouteScreen verifyDepartureStation(String expectedDepartureStation) {
 		List<String> hintDepartureLst = new ArrayList<String>();
+		List<String> expectedDepartureStationLst = new ArrayList<String>();
+		expectedDepartureStationLst = Utils.getList(expectedDepartureStation);
 		int hintNum = 3;
 		
 		for (int i = 1; i <= hintNum; i++){
 			String hintLoc = uiMap.getProperty("route.departureHint").replace("NUM", String.valueOf(i));
 			String hintDeparture = ad.findElement(By.xpath(hintLoc)).getAttribute("name");
 			hintDepartureLst.add(hintDeparture);
+			logger.info("Calculating departure hint");
 		}
 		
 		for (int i = 0; i <hintNum-1; i++) {
@@ -312,14 +317,17 @@ public class RouteScreen extends NavBarScreen {
 		return this;
 	}
 	
-	public RouteScreen verifyDestinationStation(List<String> expectedDestinationStationLst) {
+	public RouteScreen verifyDestinationStation(String expectedDestinationStation) {
 		List<String> hintDestinationLst = new ArrayList<String>();
+		List<String> expectedDestinationStationLst = new ArrayList<String>();
+		expectedDestinationStationLst = Utils.getList(expectedDestinationStation);
 		int hintNum = 3;
 		
 		for (int i = 1; i <= hintNum; i++){
 			String hintLoc = uiMap.getProperty("route.destinationHint").replace("NUM", String.valueOf(i));
 			String hintDestination = ad.findElement(By.xpath(hintLoc)).getAttribute("name");
 			hintDestinationLst.add(hintDestination);
+			logger.info("Calculating destination hint");
 
 		}
 		
@@ -329,12 +337,17 @@ public class RouteScreen extends NavBarScreen {
 		return this;
 	}
 
-	public RouteScreen swapAndVerifyLocations() {
-		String departureTxt = departure.getText();
-		String destinationTxt = destination.getText();
+	public RouteScreen swapLocations(){
 		swapBtn = ad.findElement(By.name(uiMap.getProperty("route.swapButton")));
 		swapBtn.click();
-		//ad.tap(1, swapBtn, 2);
+		logger.info("Taped swap locations button");
+		return this;
+	}
+	
+	public RouteScreen verifyLocations() {
+		String departureTxt = departure.getText();
+		String destinationTxt = destination.getText();
+		swapLocations();
 		Assert.assertEquals(ad.findElement(By.xpath(uiMap.getProperty("route.departure"))).getText(), destinationTxt, "Swap isn't working properly");
 		Assert.assertEquals(ad.findElement(By.xpath(uiMap.getProperty("route.destination"))).getText(), departureTxt, "Swap isn't working properly");
 		return this;
@@ -343,12 +356,14 @@ public class RouteScreen extends NavBarScreen {
 	public RouteScreen tapFindWithMessage() {
 		find = ad.findElement(By.xpath(uiMap.getProperty("route.search")));
 		find.click();
+		logger.info("Tapped find button");
 		return this;
 	}
 
 	public RouteScreen verifyMessageApp(String expectedText) {
 		String loc = "//UIAStaticText[contains(@label,'TEXT')]";
 		//String text = "Departure and destination stations are the same";
+		//String debug = ad.findElementByXPath("//UIAWindow[1]/UIAScrollView[1]/UIAStaticText[7]").getText();
 		try {
 			ad.findElementByXPath(loc.replace("TEXT", expectedText));			
 		} catch(Exception e) {
@@ -357,7 +372,23 @@ public class RouteScreen extends NavBarScreen {
 		
 		return this;
 	}
-	
-	
 
+	public RouteScreen doEmpty() {
+		departure = ad.findElement(By.xpath(uiMap.getProperty("route.departure")));
+		departure.click();
+		logger.info("Taped departure station");
+		String locDep = uiMap.getProperty("route.clearDeparture");
+		String locDest=  uiMap.getProperty("route.clearDestination");
+		clearBtn = ad.findElement(By.xpath(locDep));
+		ad.tap(1, clearBtn, 3);
+		logger.info("Taped clear button");
+		destination = ad.findElement(By.xpath(uiMap.getProperty("route.destination")));
+		destination.click();
+		logger.info("Taped destination station");
+		clearBtn = ad.findElement(By.xpath(locDest));
+		ad.tap(1, clearBtn, 3);
+		logger.info("Taped clear button");
+		toolbar.ready();
+		return this;
+	}
 }

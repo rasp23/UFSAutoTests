@@ -49,7 +49,7 @@
 			<parameter>Kazan</parameter>
 		</case>
 	</test>
-	<test name="testTextMessageSamePoints">
+	<test name="textMsgInvalidSearchFields">
 		<case>
 			<parameter>Kazan</parameter>
 			<parameter>Kazan</parameter>
@@ -60,5 +60,63 @@
 			<parameter>Saratov</parameter>
 			<parameter>No direct route between indicated stations was found</parameter>
 		</case>
+		<case>
+			<parameter>Monroe</parameter>
+			<parameter>Kazan</parameter>
+			<parameter>No station starting with MONROE found</parameter>
+		</case>
+		<case>
+			<parameter>Tula</parameter>
+			<parameter>Saratov</parameter>
+			<parameter>No direct route between indicated stations was found</parameter>
+		</case>
+<!--	<case>
+			<parameter>Riga</parameter>
+			<parameter>Saransk</parameter>
+			<parameter>Text message</parameter>
+		</case> -->
 	</test>	
+	<test name="testEmptyFields">
+		<case>
+			<parameter>Choose stations from list</parameter>
+		</case>
+	</test>
+	<test name="testTicketsCount">
+		<case>
+			<parameter>4</parameter>
+			<parameter>1</parameter>
+			<parameter>0</parameter>
+			<parameter>The number of passengers per booking may not exceed 4</parameter>
+		</case>
+	<!-- 	<case>
+			<parameter>1</parameter>
+			<parameter>0</parameter>
+			<parameter>2</parameter>
+			<parameter>The number of children under  5 years old may not exceed the number of adults. Choose the category.</parameter>
+		</case> -->
+		<case>
+			<parameter>2</parameter>
+			<parameter>2</parameter>
+			<parameter>1</parameter>
+			<parameter>The number of passengers per booking may not exceed 4</parameter>
+		</case>
+		<case>
+			<parameter>3</parameter>
+			<parameter>1</parameter>
+			<parameter>1</parameter>
+			<parameter>The number of passengers per booking may not exceed 4</parameter>
+		</case>
+		<case>
+			<parameter>2</parameter>
+			<parameter>1</parameter>
+			<parameter>2</parameter>
+			<parameter>The number of passengers per booking may not exceed 4</parameter>
+		</case>
+		<case>
+			<parameter>1</parameter>
+			<parameter>3</parameter>
+			<parameter>1</parameter>
+			<parameter>The number of passengers per booking may not exceed 4</parameter>
+		</case>	
+	</test>
 </test-config>
