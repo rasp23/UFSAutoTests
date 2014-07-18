@@ -31,7 +31,6 @@
 			<property name="docNumber">4511121212</property>
 			<property name="gender">Male</property>
 			<property name="birthDate">June,10,1984</property>
-			<property name="countryOfDocIssue"></property>
 			<property name="bithPlace">Петропавловск Kamchatskiy</property>
 			<property name="email">ufs.test001@gmail.com</property>
 			<property name="phone">45671234443534</property>

@@ -67,8 +67,9 @@ public class BaseScreen {
 		}
 	
 	}
+	
 	public void sendEnglish(WebElement el, String sequence){
 		goToKeyboard();
 		el.sendKeys(sequence);
-	}
+	}	
 }
