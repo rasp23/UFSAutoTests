@@ -38,26 +38,22 @@ public class TestRoute extends TestBase {
 	
 	@AfterMethod
 	public void afterMethod(Method m) {
-		if ((m.getName().equals("testSetTime")) || m.getName().equals("testTextMessageSamePoints")){
+		if ((m.getName().equals("testSetTime")) || m.getName().equals("testTextMessageSamePoints") || m.getName().equals("testTicketsCount")){
 			routeScreen.back();	
 			mainScreen.tapPurchase();
 		}
 	}
-	
+	//1
 	@Test(dataProvider = "GlobalProvider", dataProviderClass = GlobalProvider.class)
 	public void testHintDeparture(String departureStation, String expectedDepartureStation){
 		routeScreen.setDeparture(departureStation);
-		List<String> expectedDepartureStationLst = new ArrayList<String>();
-		expectedDepartureStationLst = Utils.getList(expectedDepartureStation);
-		routeScreen.verifyDepartureStation(expectedDepartureStationLst);
+		routeScreen.verifyDepartureStation(expectedDepartureStation);
 	}
-	
+	//1
 	@Test(dataProvider = "GlobalProvider", dataProviderClass = GlobalProvider.class)
 	public void testHintDestination(String destinationStation, String expectedDestinationStation){
 		routeScreen.setDestination(destinationStation);
-		List<String> expectedDestinationStationLst = new ArrayList<String>();
-		expectedDestinationStationLst = Utils.getList(expectedDestinationStation);
-		routeScreen.verifyDestinationStation(expectedDestinationStationLst);
+		routeScreen.verifyDestinationStation(expectedDestinationStation);
 	}
 	
 	
@@ -70,22 +66,36 @@ public class TestRoute extends TestBase {
 //		} 
 //	}
 		
-		
+	//2	
 	@Test(dataProvider = "GlobalProvider", dataProviderClass = GlobalProvider.class)
 	public void testSwapPoints(String departureStation, String destinationStation){
 		routeScreen.typeDeparture(departureStation);
 		routeScreen.typeDestination(destinationStation);
-		routeScreen.swapAndVerifyLocations();
+		routeScreen.verifyLocations();
 	}
-	
+	//3,4,6
 	@Test(dataProvider = "GlobalProvider", dataProviderClass = GlobalProvider.class)
-	public void testTextMessageSamePoints(String departureStation, String destinationStation, String msg){
+	public void textMsgInvalidSearchFields(String departureStation, String destinationStation, String msg){
 		routeScreen.typeDeparture(departureStation);
 		routeScreen.typeDestination(destinationStation);
 		routeScreen.tapFindWithMessage();
 		Utils.sleep(2000,"Waiting for search results");
 		routeScreen.verifyMessageApp(msg);
 	}
-
-	
+	//5
+	@Test(dataProvider = "GlobalProvider", dataProviderClass = GlobalProvider.class)
+	public void testEmptyFields(String msg){
+		routeScreen.doEmpty();
+		routeScreen.tapFindWithMessage();
+		Utils.sleep(2000,"Waiting for search results");
+		routeScreen.verifyMessageApp(msg);
+	}
+	//7,8
+	@Test(dataProvider = "GlobalProvider", dataProviderClass = GlobalProvider.class)
+	public void testTicketsCount(String adultsNum, String childNum, String infantsNum, String msg){
+		routeScreen.setAdults(adultsNum);
+		routeScreen.setChildren(childNum);
+		routeScreen.setInfants(infantsNum);
+		routeScreen.verifyMessageApp(msg);
+	}
 }

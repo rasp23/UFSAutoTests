@@ -4,11 +4,11 @@
 		<case>		
 		    <parameter>Search002</parameter>	
 		    <parameter>020У</parameter>	    
-		    <parameter>1</parameter>
+		    <parameter>2</parameter>
 		    <parameter>2</parameter>
 		    <parameter>5</parameter>
 		    <parameter>30</parameter>
-		    <parameter>Lower</parameter>
+		    <parameter>Indifferent</parameter>
 		    <parameter>Passenger001</parameter>
 		</case>	
 	</test>		

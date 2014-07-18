@@ -26,7 +26,7 @@ public class Passenger {
 	
 	private String phone;
 	
-	private boolean onlineCheckin;
+	private boolean checkIn = true;
 	
 	public Passenger(TestObject passenger) {
 		this.surname = passenger.getProperty("surname");
@@ -40,7 +40,10 @@ public class Passenger {
 		this.bithPlace = passenger.getProperty("bithPlace");
 		this.email = passenger.getProperty("email");
 		this.phone = passenger.getProperty("phone");
-		this.onlineCheckin = Boolean.valueOf(passenger.getProperty("onlineCheckin"));
+		String checkIn = passenger.getProperty("checkIn");
+		if (checkIn != null) {
+			this.checkIn = Boolean.valueOf(checkIn);
+		}
 	}
 
 	public String getSurname() {
@@ -131,12 +134,12 @@ public class Passenger {
 		this.phone = phone;
 	}
 
-	public boolean isOnlineCheckin() {
-		return onlineCheckin;
+	public boolean isCheckIn() {
+		return checkIn;
 	}
 
-	public void setOnlineCheckin(boolean onlineCheckin) {
-		this.onlineCheckin = onlineCheckin;
+	public void setCheckIn(boolean checkIn) {
+		this.checkIn = checkIn;
 	}
 	
 }

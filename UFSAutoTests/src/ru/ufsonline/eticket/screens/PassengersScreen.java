@@ -1,5 +1,6 @@
 package ru.ufsonline.eticket.screens;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.appium.java_client.AppiumDriver;
@@ -7,6 +8,7 @@ import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.WebElement;
 
 import ru.ufsonline.eticket.objects.Passenger;
+import ru.ufsonline.eticket.utils.TestObject;
 import ru.ufsonline.eticket.utils.Utils;
 
 public class PassengersScreen extends BaseScreen {
@@ -35,6 +37,8 @@ public class PassengersScreen extends BaseScreen {
 	
 	private WebElement paymentBtn;
 	
+	private WebElement checkInSwitch;
+	
 	private Picker picker;
 
 	public PassengersScreen(AppiumDriver ad) {
@@ -43,97 +47,135 @@ public class PassengersScreen extends BaseScreen {
 		picker = new Picker(ad);
 	}
 	
-	public PassengersScreen typeSurname(String surname) {
-		surnameField = ad.findElementByXPath(uiMap.getProperty("passenger.surname"));
+	public PassengersScreen typeSurname(String num, String surname) {
+		surnameField = ad.findElementByXPath(uiMap.getProperty("passenger.surname").replace("NUM", num));
 		surnameField.sendKeys(surname);
+		toolbar.ready();
 		return this;
 	}
 	
-	public PassengersScreen typeName(String name) {
-		nameField = ad.findElementByXPath(uiMap.getProperty("passenger.name"));
+	public PassengersScreen typeName(String num, String name) {
+		nameField = ad.findElementByXPath(uiMap.getProperty("passenger.name").replace("NUM", num));
 		nameField.sendKeys(name);
+		toolbar.ready();
 		return this;
 	}
 	
-	public PassengersScreen typeSecondName(String secondName) {
-		secondNameField = ad.findElementByXPath(uiMap.getProperty("passenger.second_name"));
+	public PassengersScreen typeSecondName(String num, String secondName) {
+		secondNameField = ad.findElementByXPath(uiMap.getProperty("passenger.second_name").replace("NUM", num));
 		secondNameField.sendKeys(secondName);
+		toolbar.ready();
 		return this;
 	}
 	
-	public PassengersScreen selectIdDocType(String idDocType) {
-		idDocTypeBtn = ad.findElementByXPath(uiMap.getProperty("passenger.doc_btn"));
+	public PassengersScreen selectIdDocType(String num, String idDocType) {
+		idDocTypeBtn = ad.findElementByXPath(uiMap.getProperty("passenger.doc_btn").replace("NUM", num));
 		idDocTypeBtn.click();
-		picker.pickItem("1",idDocType);
+		picker.pickItem(idDocType);
 		return this;
 	}
 	
-	public PassengersScreen typeDocNumber(String docNum) {
-		docNumberField = ad.findElementByXPath(uiMap.getProperty("passenger.doc_num"));
+	public PassengersScreen typeDocNumber(String num, String docNum) {
+		docNumberField = ad.findElementByXPath(uiMap.getProperty("passenger.doc_num").replace("NUM", num));
 		docNumberField.sendKeys(docNum);
+		toolbar.ready();
 		return this;
 	}
 	
-	public PassengersScreen selectGender(String gender) {
-		genderBtn = ad.findElementByXPath(uiMap.getProperty("passenger.gender"));
+	public PassengersScreen selectGender(String num, String gender) {
+		genderBtn = ad.findElementByXPath(uiMap.getProperty("passenger.gender").replace("NUM", num));
 		genderBtn.click();
-		picker.pickItem("1", gender);
+		picker.pickItem(gender);
 		return this;
 	}
 	
-	public PassengersScreen selectBirthDate(String sBirthDate) {
+	public PassengersScreen selectBirthDate(String num, String sBirthDate) {
 		List<String> lBirthDate = Utils.getList(sBirthDate);
-		birthdayBtn = ad.findElementByXPath(uiMap.getProperty("passenger.birthday_btn"));		
+		birthdayBtn = ad.findElementByXPath(uiMap.getProperty("passenger.birthday_btn").replace("NUM", num));		
 		birthdayBtn.click();		
-		picker.pickItem("1", lBirthDate.get(0));
-		picker.pickItem("2", lBirthDate.get(1));
-		picker.pickItem("3", lBirthDate.get(2));
+		picker.pickItem(lBirthDate);
 		return this;
 	}
 	
-	public PassengersScreen selectDocCountry(String docCountry) {
-		docCountryBtn = ad.findElementByXPath(uiMap.getProperty("passenger.doc_country_btn"));
-		docCountryBtn.click();
-		picker.pickItem("1", docCountry);
+	public PassengersScreen selectDocCountry(String num, String docCountry) {
+		if (docCountry != null) {
+			docCountryBtn = ad.findElementByXPath(uiMap.getProperty("passenger.doc_country_btn").replace("NUM", num));
+			docCountryBtn.click();
+			picker.pickItem(docCountry);
+		}
 		return this;
 	}
 	
-	public PassengersScreen typeBithPlace(String birthPlace) {
-		birthPlaceField = ad.findElementByXPath(uiMap.getProperty("passenger.birth_place"));
+	public PassengersScreen typeBithPlace(String num, String birthPlace) {
+		birthPlaceField = ad.findElementByXPath(uiMap.getProperty("passenger.birth_place").replace("NUM", num));
 		birthPlaceField.sendKeys(birthPlace);
+		toolbar.ready();
 		return this;
 	}
 	
-	public PassengersScreen typeEmail(String email) {
-		emailField = ad.findElementByXPath(uiMap.getProperty("passenger.email"));
+	public PassengersScreen typeEmail(String num, String email) {
+		emailField = ad.findElementByXPath(uiMap.getProperty("passenger.email").replace("NUM", num));
 		emailField.sendKeys(email);
+		toolbar.ready();
 		return this;
 	}
 	
-	public PassengersScreen typePhone(String phone) {
-		phoneField = ad.findElementByXPath(uiMap.getProperty("passenger.phone"));
+	public PassengersScreen typePhone(String num, String phone) {
+		phoneField = ad.findElementByXPath(uiMap.getProperty("passenger.phone").replace("NUM", num));
 		phoneField.sendKeys(phone);
+		toolbar.ready();
+		return this;
+	}
+		
+	public PassengersScreen enableCheckIn(String num) {
+		checkInSwitch = ad.findElementByXPath(uiMap.getProperty("passenger.checkin").replace("NUM", num));
+		if (checkInSwitch.getAttribute("value").equals("0")) {
+			checkInSwitch.click();
+		}
 		return this;
 	}
 	
-	public PaymentScreen clickPayment() {
+	public PopupDialog disableCheckIn(String num) {
+		checkInSwitch = ad.findElementByXPath(uiMap.getProperty("passenger.checkin").replace("NUM", num));
+		if (checkInSwitch.getAttribute("value").equals("1")){
+			checkInSwitch.click();
+		}		
+		return new PopupDialog(ad);
+	}
+	
+	public BookingSummaryScreen clickPayment() {
 		paymentBtn = ad.findElementByXPath(uiMap.getProperty("passenger.payment"));
 		paymentBtn.click();
-		return new PaymentScreen(ad);
+		return new BookingSummaryScreen(ad);
 	}
 	
-	public PassengersScreen fillPassengerData(Passenger passenger) {
-		typeSurname(passenger.getSurname());
-		typeName(passenger.getName());
-		typeSecondName(passenger.getSecondName());
-		selectIdDocType(passenger.getIdDocType());
-		typeDocNumber(passenger.getDocNumber());
-		selectGender(passenger.getGender());
-		selectBirthDate(passenger.getBithDate());
-		selectDocCountry(passenger.getCountryOfDocIssue());
-		typeBithPlace(passenger.getBithPlace());
-		typeEmail(passenger.getEmail());
-		typePhone(passenger.getPhone());
+	public PassengersScreen fillPassengerData(String num, Passenger passenger) {
+		typeSurname(num, passenger.getSurname());
+		typeName(num, passenger.getName());
+		typeSecondName(num, passenger.getSecondName());
+		selectIdDocType(num, passenger.getIdDocType());
+		typeDocNumber(num, passenger.getDocNumber());
+		selectGender(num, passenger.getGender());
+		selectBirthDate(num, passenger.getBithDate());
+		selectDocCountry(num, passenger.getCountryOfDocIssue());
+		typeBithPlace(num, passenger.getBithPlace());
+		typeEmail(num, passenger.getEmail());
+		typePhone(num, passenger.getPhone());
+		if (passenger.isCheckIn()) {
+			enableCheckIn(num);
+		} else {
+			disableCheckIn(num);
+		}
+		
+		return this;
+	}
+	
+	public PassengersScreen fillPassengersData(String sPassengers) {
+		List<String> lPassengers = new ArrayList<String>();
+		lPassengers = Utils.getList(sPassengers);
+		for (String s:lPassengers) {
+			fillPassengerData(String.valueOf(lPassengers.indexOf(s) + 1), new Passenger(new TestObject(s)));
+		}
 		
 		return this;
 	}

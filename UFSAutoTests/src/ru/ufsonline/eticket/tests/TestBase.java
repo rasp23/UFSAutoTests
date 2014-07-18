@@ -58,7 +58,7 @@ public class TestBase {
 			e.printStackTrace();
 		}
 		
-		ad.manage().timeouts().implicitlyWait(AppiumSession.timeout/1000, TimeUnit.SECONDS);			
+		ad.manage().timeouts().implicitlyWait(AppiumSession.timeout/500, TimeUnit.SECONDS);			
 		agreementDialog = new UserAgreementDialog(ad);
 		mainScreen = agreementDialog.acceptUserAgreement();		
 	}
