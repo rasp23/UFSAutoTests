@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<test-config xmlns="http://utils.applique.com">
+	<test name="testSorting">
+		<case></case>
+	</test>
+	<test name="testEreg">
+		<case>
+			<parameter>Check-in online is available for this train</parameter>
+		</case>
+	</test>
+</test-config>
