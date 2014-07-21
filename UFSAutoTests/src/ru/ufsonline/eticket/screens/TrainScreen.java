@@ -21,6 +21,14 @@ public class TrainScreen extends BaseScreen {
 	
 	private WebElement eRegBtn;
 	
+	private WebElement routeBtn;
+	
+	private WebElement windowRoute;
+	
+	private WebElement windowTrain;
+	
+	private WebElement routeCloseBtn;
+	
 	public TrainScreen(AppiumDriver ad) {
 		super(ad);
 		title = ad.findElement(MobileBy.AccessibilityId(uiMap.getProperty("train.title")));		
@@ -89,7 +97,7 @@ public class TrainScreen extends BaseScreen {
 	public TrainScreen verifyMessageApp(String expectedText) {
 		String loc = "//UIAStaticText[contains(@label,'TEXT')]";
 		//String text = "Departure and destination stations are the same";
-		String debug = ad.findElementByXPath("//UIAWindow[1]/UIAScrollView[1]/UIAStaticText[7]").getText();
+		//String debug = ad.findElementByXPath("//UIAWindow[1]/UIAStaticText[2]").getText();
 		try {
 			ad.findElementByXPath(loc.replace("TEXT", expectedText));			
 		} catch(Exception e) {
@@ -104,5 +112,24 @@ public class TrainScreen extends BaseScreen {
 		logger.info("Taped eReg button");
 		return this;
 	}
+
+	public void verifyRouteApp(String trainNum, String trainRoute) {
+		routeBtn = ad.findElement(By.xpath(uiMap.getProperty("train.routeBtn")));
+		routeBtn.click();
+		logger.info("Taped route button");
+		windowRoute = ad.findElement(By.xpath(uiMap.getProperty("train.windowRoute")));
+		String textWindowRoute =windowRoute.getText();
+		windowTrain = ad.findElement(By.xpath(uiMap.getProperty("train.windowTrain")));
+		String textWindowTrain = windowTrain.getText();
+		
+		Assert.assertEquals(textWindowTrain, trainNum, "TrainNum isn't so as expected!");
+		Assert.assertEquals(textWindowRoute, trainRoute, "Route isn't so as expected!");	
+	}
 	
+	public TrainScreen closeRouteWin(){
+	routeCloseBtn = ad.findElement(By.xpath(uiMap.getProperty("train.windowCloseBtn")));
+	routeCloseBtn.click();
+	logger.info("Taped close button");
+	return this;
+	}
 }

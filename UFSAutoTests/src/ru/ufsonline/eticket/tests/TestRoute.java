@@ -6,9 +6,11 @@ import java.util.List;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import ru.ufsonline.eticket.screens.MainScreen.Language;
+import ru.ufsonline.eticket.screens.Toolbar;
 import ru.ufsonline.eticket.utils.GlobalProvider;
 import ru.ufsonline.eticket.utils.Utils;
 
@@ -45,27 +47,38 @@ public class TestRoute extends TestBase {
 	}
 	//1
 	@Test(dataProvider = "GlobalProvider", dataProviderClass = GlobalProvider.class)
-	public void testHintDeparture(String departureStation, String expectedDepartureStation){
+	public void testHintDepartureEng(String departureStation, String expectedDepartureStation){
 		routeScreen.setDeparture(departureStation);
 		routeScreen.verifyDepartureStation(expectedDepartureStation);
 	}
 	//1
 	@Test(dataProvider = "GlobalProvider", dataProviderClass = GlobalProvider.class)
-	public void testHintDestination(String destinationStation, String expectedDestinationStation){
+	public void testHintDestinationEng(String destinationStation, String expectedDestinationStation){
 		routeScreen.setDestination(destinationStation);
 		routeScreen.verifyDestinationStation(expectedDestinationStation);
 	}
+	//1*
+	@BeforeMethod
+	public void beforeMethod(Method m){
+		if ((m.getName().equals("testHintDepartureRus")) || m.getName().equals("testHintDestinationRus")){
+			routeScreen.back();
+			mainScreen.setLanguage(Language.RUSSIAN);
+			mainScreen.tapPurchase();
+		}
+	}
+	//1*
+	@Test(dataProvider = "GlobalProvider", dataProviderClass = GlobalProvider.class)
+	public void testHintDepartureRus(String departure, String expectedDepStation){
+		routeScreen.setDepartureRus(departure);
+		routeScreen.verifyDepartureStation(expectedDepStation);
+	}
+	//1*
+	@Test(dataProvider = "GlobalProvider", dataProviderClass = GlobalProvider.class)
+	public void testHintDestinationRus(String destination, String expectedDesStation){
+		routeScreen.setDestinationRus(destination);
+		routeScreen.verifyDestinationStation(expectedDesStation);
+	}
 	
-	
-//	@AfterMethod
-//	public void afterMethodHint(Method m) {
-//		if ((m.getName().equals("testHintDestination")) || (m.getName().equals("testHintDeparture"))){
-//			routeScreen.back();
-//			mainScreen.setLanguage(Language.RUSSIAN);
-//			mainScreen.tapPurchase();
-//		} 
-//	}
-		
 	//2	
 	@Test(dataProvider = "GlobalProvider", dataProviderClass = GlobalProvider.class)
 	public void testSwapPoints(String departureStation, String destinationStation){
@@ -79,15 +92,12 @@ public class TestRoute extends TestBase {
 		routeScreen.typeDeparture(departureStation);
 		routeScreen.typeDestination(destinationStation);
 		routeScreen.tapFindWithMessage();
-		Utils.sleep(2000,"Waiting for search results");
 		routeScreen.verifyMessageApp(msg);
 	}
 	//5
 	@Test(dataProvider = "GlobalProvider", dataProviderClass = GlobalProvider.class)
 	public void testEmptyFields(String msg){
 		routeScreen.doEmpty();
-		routeScreen.tapFindWithMessage();
-		Utils.sleep(2000,"Waiting for search results");
 		routeScreen.verifyMessageApp(msg);
 	}
 	//7,8

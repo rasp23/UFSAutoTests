@@ -55,7 +55,7 @@ public class BaseScreen {
 		element.sendKeys(text);
 	}
 
-	public void goToKeyboard(){
+	public void goToEngKeyboard(){
 		String keyOne;
 		keyOne = ad.findElement(By.xpath(uiMap.getProperty("route.keyboardKey"))).getAttribute("label");
 		while (!keyOne.equals("q")){
@@ -67,9 +67,25 @@ public class BaseScreen {
 		}
 	
 	}
-	
 	public void sendEnglish(WebElement el, String sequence){
-		goToKeyboard();
+		goToEngKeyboard();
 		el.sendKeys(sequence);
-	}	
+	}
+	
+	public void goToRusKeyboard(){
+		String keyOne;
+		keyOne = ad.findElement(By.xpath(uiMap.getProperty("route.keyboardKey"))).getAttribute("label");
+		while (!keyOne.equals("Й")){
+			String loc = "//UIAButton[contains(@label,'Next keyboard')]";
+			WebElement changeKeyboard = ad.findElement(By.xpath(loc));
+			changeKeyboard.click();
+			logger.info("Tapped change keyboard button");
+			keyOne = ad.findElement(By.xpath(uiMap.getProperty("route.keyboardKey"))).getAttribute("label");
+		}
+	
+	}
+	public void sendRus(WebElement el, String sequence){
+		goToRusKeyboard();
+		el.sendKeys(sequence);
+	}
 }
