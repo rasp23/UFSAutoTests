@@ -42,6 +42,8 @@ public class TrainScreen extends BaseScreen {
 		
 		for (int i=1; i<=trainsFound; i++) {
 			train = ad.findElementByXPath(uiMap.getProperty("train.number").replace("NUM", String.valueOf(i)));
+			//String debug = train.getAttribute("label");
+			//boolean m = debug.contains(expectedTrain);
 			isTrainPresent = train.getAttribute("label").contains(expectedTrain);
 			if (isTrainPresent) {
 				index = i;
