@@ -8,4 +8,10 @@
 			<parameter>Check-in online is available for this train</parameter>
 		</case>
 	</test>
+	<test name="testRoute">
+		<case>
+			<parameter>Train № 016А</parameter>
+			<parameter>MOSCOW - MURMANSK</parameter>
+		</case>
+	</test>
 </test-config>
