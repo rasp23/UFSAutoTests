@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<test-config xmlns="http://utils.applique.com">	
+	<test name="testDefaultRusDoc">
+		<case> 
+		    <parameter>Search002</parameter>	
+		    <parameter>002Й</parameter>	
+		    <parameter>3</parameter>
+		    <parameter>14</parameter>
+		    <parameter>10</parameter>
+		    <parameter>20</parameter>
+		    <parameter></parameter>
+		    <parameter></parameter>
+		</case>	
+	</test>
+</test-config>	

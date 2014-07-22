@@ -9,7 +9,7 @@ public class TestMainScreen extends TestBase {
 
 	@Test(dataProvider="GlobalProvider", dataProviderClass=GlobalProvider.class)
 	public void testSetLanguage(String language, String text) {
-		mainScreen.setLanguage(Language.valueOf(language));
-		mainScreen.verifyMyTicketsText(text);
+		main.setLanguage(Language.valueOf(language));
+		main.verifyMyTicketsText(text);
 	}	
 }

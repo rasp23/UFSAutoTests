@@ -10,24 +10,24 @@ public class TestTrain extends TestBase {
 	@BeforeClass
 	public void beforeClass() {
 		super.beforeClass();
-		routeScreen = mainScreen.tapPurchase();
-		trainScreen = routeScreen.tapFind();
+		route = main.tapPurchase();
+		train = route.tapFind();
 	}
 	//9
 	@Test(dataProvider="GlobalProvider", dataProviderClass=GlobalProvider.class)
 	public void testSorting(){
-		trainScreen.verifySorting();
+		train.verifySorting();
 	}
 	//10
 	@Test(dataProvider="GlobalProvider", dataProviderClass=GlobalProvider.class)
 	public void testEreg(String msg){
-		trainScreen.tapEreg();
-		trainScreen.verifyMessageApp(msg);
+		train.tapEreg();
+		train.verifyMessageApp(msg);
 	}
 	//11
 	@Test(dataProvider="GlobalProvider", dataProviderClass=GlobalProvider.class)
 	public void testRoute(String trainNum, String trainRoute){
-		trainScreen.verifyRouteApp(trainNum,trainRoute);
-		trainScreen.closeRouteWin();
+		train.verifyRouteApp(trainNum,trainRoute);
+		train.closeRouteWin();
 	}
 }

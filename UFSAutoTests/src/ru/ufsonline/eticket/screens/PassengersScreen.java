@@ -5,7 +5,9 @@ import java.util.List;
 
 import io.appium.java_client.AppiumDriver;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 import ru.ufsonline.eticket.objects.Passenger;
 import ru.ufsonline.eticket.utils.TestObject;
@@ -38,6 +40,8 @@ public class PassengersScreen extends BaseScreen {
 	private WebElement paymentBtn;
 	
 	private WebElement checkInSwitch;
+	
+	private WebElement eRegSwitch;
 	
 	private Picker picker;
 
@@ -177,6 +181,24 @@ public class PassengersScreen extends BaseScreen {
 			fillPassengerData(String.valueOf(lPassengers.indexOf(s) + 1), new Passenger(new TestObject(s)));
 		}
 		
+		return this;
+	}
+	
+	public PassengersScreen verifyMessageApp(String expectedText) {
+		String loc = "//UIAStaticText[contains(@label,'TEXT')]";
+		try {
+			ad.findElementByXPath(loc.replace("TEXT", expectedText));			
+		} catch(Exception e) {
+			Assert.fail();
+		}		
+		
+		return this;
+	}
+
+	public PassengersScreen verifyEregSwitchOn() {
+		eRegSwitch = ad.findElement(By.xpath(uiMap.getProperty("passenger.eregSwitch")));
+		int switchOn = 1;
+		Assert.assertTrue(eRegSwitch.getAttribute("value").equals(switchOn), "Electronic regisration is not turned on as a default!");
 		return this;
 	}
 	

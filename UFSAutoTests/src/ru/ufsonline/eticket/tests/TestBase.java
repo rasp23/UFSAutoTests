@@ -15,6 +15,8 @@ import ru.ufsonline.eticket.common.CommonConstants;
 import ru.ufsonline.eticket.screens.CarScreen;
 import ru.ufsonline.eticket.screens.MainScreen;
 import ru.ufsonline.eticket.screens.PassengersScreen;
+import ru.ufsonline.eticket.screens.PaymentDeatailsScreen;
+import ru.ufsonline.eticket.screens.ReviewOrderScreen;
 import ru.ufsonline.eticket.screens.RouteScreen;
 import ru.ufsonline.eticket.screens.SeatScreen;
 import ru.ufsonline.eticket.screens.TrainScreen;
@@ -26,19 +28,25 @@ public class TestBase {
 	
 	private AppiumDriver ad = null;
 	
-	protected UserAgreementDialog agreementDialog = null;
+	protected UserAgreementDialog agreement = null;
 	
-	protected MainScreen mainScreen = null;
+	protected MainScreen main = null;
 	
-	protected RouteScreen routeScreen = null;
+	protected RouteScreen route = null;
 	
-	protected TrainScreen trainScreen = null;
+	protected TrainScreen train = null;
 	
-	protected CarScreen carScreen = null;
+	protected CarScreen car = null;
 	
-	protected SeatScreen seatScreen = null;
+	protected SeatScreen seat = null;
 	
-	protected PassengersScreen passengersScreen;
+	protected PassengersScreen passengers = null;
+	
+	protected BillingInfoScreen billingInfo = null;
+	
+	protected PaymentDeatailsScreen paymentDetails = null;
+	
+	protected ReviewOrderScreen reviewOrder = null;
 	
 	@BeforeClass
 	public void beforeClass() {		
@@ -59,8 +67,8 @@ public class TestBase {
 		}
 		
 		ad.manage().timeouts().implicitlyWait(AppiumSession.timeout/500, TimeUnit.SECONDS);			
-		agreementDialog = new UserAgreementDialog(ad);
-		mainScreen = agreementDialog.acceptUserAgreement();		
+		agreement = new UserAgreementDialog(ad);
+		main = agreement.acceptUserAgreement();		
 	}
 	
 	@AfterClass
