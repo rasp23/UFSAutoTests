@@ -37,4 +37,16 @@
 			<property name="onlineCheckin">true</property>
 		</properties>
 	</data>	
+	<data name="Payment001">
+		<properties>
+			<property name="firstName">Test</property>
+			<property name="lastName">Test</property>
+			<property name="phoneNumber">837457656465</property>
+			<property name="email">ufs.test001@gmail.com</property>
+			<property name="cardType">MasterCard</property>
+			<property name="cardNumber">5276440065421319</property>
+			<property name="cvn">575</property>
+			<property name="expDate">02,2021</property>
+		</properties>
+	</data>	
 </test-data>

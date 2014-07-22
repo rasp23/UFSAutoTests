@@ -72,4 +72,6 @@ public class BaseScreen {
 		goToKeyboard();
 		el.sendKeys(sequence);
 	}	
+	
+	
 }

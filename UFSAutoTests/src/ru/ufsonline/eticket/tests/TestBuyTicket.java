@@ -4,7 +4,7 @@ import org.testng.annotations.Test;
 
 import ru.ufsonline.eticket.objects.Passenger;
 import ru.ufsonline.eticket.objects.SearchProperties;
-import ru.ufsonline.eticket.screens.PaymentScreen;
+import ru.ufsonline.eticket.screens.BillingInfoScreen;
 import ru.ufsonline.eticket.utils.GlobalProvider;
 import ru.ufsonline.eticket.utils.TestObject;
 
@@ -16,20 +16,25 @@ public class TestBuyTicket extends TestBase {
 	
 	@Test(dataProvider="GlobalProvider", dataProviderClass=GlobalProvider.class)
 	public void testSuccessfullSearch(String sSearchProps, String expectedTrain, String carType, String carNumber, String seatFrom, String seatTo, 
-			String level, String sPassengersData) {	
+			String level, String sPassengersData, String sPaymentInfo) {	
 		TestObject searchProps = new TestObject(sSearchProps);
 		
-		routeScreen = mainScreen.tapPurchase();
+		route = main.tapPurchase();
 //		routeScreen.fillSearchProperties(new SearchProperties(searchProps));		
-		trainScreen = routeScreen.tapFind();
-		String trainIndex = trainScreen.verifyTrainPresent(expectedTrain);	
-		carScreen = trainScreen.selectCarType(trainIndex, carType);
-		carScreen.selectCar(carNumber);
-		seatScreen = carScreen.selectSeat().hideHint();
+		train = route.tapFind();
+		String trainIndex = train.verifyTrainPresent(expectedTrain);	
+		car = train.selectCarType(trainIndex, carType);		
+		car.selectCar(carNumber);
+		seat = car.selectSeat().hideHint();
 //		seatScreen.pickRange(seatFrom, seatTo);
-		seatScreen.pickLocationLevel(level);
-		passengersScreen = seatScreen.clickPassengerData();
-		passengersScreen.fillPassengersData(sPassengersData);
-		passengersScreen.clickPayment().clickNext().clickYes(PaymentScreen.class);
-	}
+		seat.pickLocationLevel(level);
+		passengers = seat.clickPassengerData();
+		passengers.fillPassengersData(sPassengersData);
+		billingInfo = passengers.clickPayment().clickNext().clickYes(BillingInfoScreen.class);
+		billingInfo.fillBillingInfo(sPaymentInfo);
+		paymentDetails = billingInfo.clickNext();
+		paymentDetails.fillPaymentDetails(sPaymentInfo);
+		reviewOrder = paymentDetails.clickNext();
+		reviewOrder.clickPay();
+	}	 
 }

@@ -15,7 +15,7 @@ public class CarScreen extends BaseScreen {
 	public void selectCar(String carNumber) {
 		String locator = uiMap.getProperty("car.number").replace("NUM", carNumber);
 		WebElement car = ad.findElementByXPath(locator);
-		scroll(car, "right");
+		scroll(car, "right");		
 	}
 	
 	public SeatSelectionHintDialog selectSeat() {

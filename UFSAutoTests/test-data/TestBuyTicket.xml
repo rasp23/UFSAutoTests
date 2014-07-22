@@ -10,6 +10,7 @@
 		    <parameter>30</parameter>
 		    <parameter>Indifferent</parameter>
 		    <parameter>Passenger001</parameter>
+		    <parameter>Payment001</parameter>
 		</case>	
 	</test>		
 </test-config>

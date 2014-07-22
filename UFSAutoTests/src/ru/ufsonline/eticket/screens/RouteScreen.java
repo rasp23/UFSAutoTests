@@ -59,8 +59,6 @@ public class RouteScreen extends NavBarScreen {
 	
 	private WebElement find;
 	
-	private WebElement ready;
-	
 	private WebElement clearBtn;
 	
 	private final String DATE_PATTERN = "E d MMMM, yyyy"; 

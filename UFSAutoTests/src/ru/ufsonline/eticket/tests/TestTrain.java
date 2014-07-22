@@ -10,19 +10,19 @@ public class TestTrain extends TestBase {
 	@BeforeClass
 	public void beforeClass() {
 		super.beforeClass();
-		routeScreen = mainScreen.tapPurchase();
-		trainScreen = routeScreen.tapFind();
+		route = main.tapPurchase();
+		train = route.tapFind();
 	}
 	//9
 	@Test(dataProvider="GlobalProvider", dataProviderClass=GlobalProvider.class)
 	public void testSorting(){
-		trainScreen.verifySorting();
+		train.verifySorting();
 	}
 	//
 	@Test(dataProvider="GlobalProvider", dataProviderClass=GlobalProvider.class)
 	public void testEreg(String msg){
-		trainScreen.tapEreg();
-		trainScreen.verifyMessageApp(msg);
+		train.tapEreg();
+		train.verifyMessageApp(msg);
 	}
 	
 }
