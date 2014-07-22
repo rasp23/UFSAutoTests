@@ -2,18 +2,16 @@
 <test-config xmlns="http://utils.applique.com">	
 	<test name="testRates">
 		<case> <!-- был выбран 002Й как более вероятный, чем 098Х -->	
-		    <parameter>Search002</parameter>	
-		    <parameter>002Й</parameter>	
-		    <parameter>3</parameter>
+	        <!-- <parameter>Search002</parameter> 	-->
+		    <parameter>debugSearch</parameter>
+	        <parameter>002Й</parameter>
+			<parameter>3</parameter>
 		    <parameter>For more details, refer to "Help".</parameter>
 		</case>	
 	</test>
 	<test name="testServices">
-		<case> <!-- был выбран 002Й как более вероятный, чем 098Х -->	
-		    <parameter>Search002</parameter>	
-		    <parameter>002Й</parameter>	
-		    <parameter>3</parameter>
-		    <parameter>03</parameter>
+		<case> <!-- был выбран 002Й как более вероятный, чем 098Х -->	    
+	        <parameter>03</parameter>
 		    <parameter>Information about car</parameter>
 		</case>	
 	</test>				

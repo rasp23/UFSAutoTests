@@ -153,6 +153,12 @@ public class PassengersScreen extends BaseScreen {
 		return new BookingSummaryScreen(ad);
 	}
 	
+	public PassengersScreen clickPaymentMsg(){
+		paymentBtn = ad.findElementByXPath(uiMap.getProperty("passenger.payment"));
+		paymentBtn.click();
+		return this;
+	}
+	
 	public PassengersScreen fillPassengerData(String num, Passenger passenger) {
 		typeSurname(num, passenger.getSurname());
 		typeName(num, passenger.getName());
@@ -185,7 +191,8 @@ public class PassengersScreen extends BaseScreen {
 	}
 	
 	public PassengersScreen verifyMessageApp(String expectedText) {
-		String loc = "//UIAStaticText[contains(@label,'TEXT')]";
+		String loc = "//UIAStaticText[contains(@label,\"TEXT\")]";
+		String debug = loc.replace("TEXT", expectedText);
 		try {
 			ad.findElementByXPath(loc.replace("TEXT", expectedText));			
 		} catch(Exception e) {
@@ -197,7 +204,8 @@ public class PassengersScreen extends BaseScreen {
 
 	public PassengersScreen verifyEregSwitchOn() {
 		eRegSwitch = ad.findElement(By.xpath(uiMap.getProperty("passenger.eregSwitch")));
-		int switchOn = 1;
+		String switchOn = "1";
+		//String debug  = eRegSwitch.getAttribute("value");
 		Assert.assertTrue(eRegSwitch.getAttribute("value").equals(switchOn), "Electronic regisration is not turned on as a default!");
 		return this;
 	}

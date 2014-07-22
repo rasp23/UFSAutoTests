@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <test-config xmlns="http://utils.applique.com">	
-	<test name="testDefaultRusDoc">
+	<test name="testDefaultEngDoc">
 		<case> 
-		    <parameter>Search002</parameter>	
+		    <!-- <parameter>Search002</parameter> -->
+		    <parameter>debugSearch</parameter>	
 		    <parameter>002Й</parameter>	
 		    <parameter>3</parameter>
-		    <parameter>14</parameter>
-		    <parameter>10</parameter>
-		    <parameter>20</parameter>
-		    <parameter></parameter>
-		    <parameter></parameter>
+		    <parameter>1</parameter>
+		    <parameter>Foreign-issued document</parameter>
+		    <parameter>Foreign-issued document</parameter>
+		</case>	
+	</test>
+	<test name="testPassInvalidDataMsg">
+		<case> 
+		    <parameter>Error in fields filling: Passenger №2Child 5-10: 'Birthdate'</parameter>
 		</case>	
 	</test>
 </test-config>	

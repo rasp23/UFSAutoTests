@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-public class CarScreen extends BaseScreen {
+public class CarScreen extends NavBarScreen {
 	
 	private WebElement selectSeat;
 	
@@ -17,6 +17,8 @@ public class CarScreen extends BaseScreen {
 	private WebElement servicesBtn;
 	
 	private WebElement closeServicesBtn;
+	
+	private WebElement back;
 
 	public CarScreen(AppiumDriver ad) {
 		super(ad);
@@ -84,6 +86,10 @@ public class CarScreen extends BaseScreen {
 		logger.info("Taped close services button");
 		return this;
 	}
-	
+
+	public void back() {
+		back = ad.findElementByAccessibilityId(uiMap.getProperty("navbar.back"));
+		back.click();
+	}
 
 }

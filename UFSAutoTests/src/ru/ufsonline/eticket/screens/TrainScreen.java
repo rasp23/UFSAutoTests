@@ -13,7 +13,7 @@ import org.testng.Assert;
 
 import ru.ufsonline.eticket.utils.Utils;
 
-public class TrainScreen extends BaseScreen {
+public class TrainScreen extends NavBarScreen {
 	
 	private WebElement title; 
 	
@@ -28,6 +28,8 @@ public class TrainScreen extends BaseScreen {
 	private WebElement windowTrain;
 	
 	private WebElement routeCloseBtn;
+	
+	private WebElement back;
 	
 	public TrainScreen(AppiumDriver ad) {
 		super(ad);
@@ -133,5 +135,10 @@ public class TrainScreen extends BaseScreen {
 	routeCloseBtn.click();
 	logger.info("Taped close button");
 	return this;
+	}
+
+	public void back() {
+		back = ad.findElementByAccessibilityId(uiMap.getProperty("navbar.back"));
+		back.click();
 	}
 }

@@ -32,7 +32,18 @@
 			<property name="children">1</property>
 			<property name="infants">0</property>
 		</properties>
-	</data>		
+	</data>
+	<data name="debugSearch">
+		<properties>
+			<property name="departure">Moscow</property>
+			<property name="destination">Kazan</property>
+			<property name="departureDate">1</property>
+			<property name="departureTime">0:00 - 24:00</property>
+			<property name="adults">1</property>
+			<property name="children">1</property>
+			<property name="infants">0</property>	
+		</properties>
+	</data>			
 	<data name="Passenger001">
 		<properties>
 			<property name="surname">Иванов-Петров Сидоров</property>
