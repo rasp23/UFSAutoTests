@@ -2,6 +2,7 @@ package ru.ufsonline.eticket.screens;
 
 import io.appium.java_client.AppiumDriver;
 
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -59,11 +60,15 @@ public class RouteScreen extends NavBarScreen {
 	
 	private WebElement find;
 	
+	private WebElement ready;
+	
 	private WebElement clearBtn;
 	
 	private final String DATE_PATTERN = "E d MMMM, yyyy"; 
 	
 	private Toolbar toolbar;
+	
+	private WebElement key;
 
 
 	
@@ -75,9 +80,6 @@ public class RouteScreen extends NavBarScreen {
 	public void typeDeparture(String station) {
 		departure = ad.findElement(By.xpath(uiMap.getProperty("route.departure")));
 		departure.click();
-		//goToNeededKeyboard();
-		//Utils.sleep(3000, "Avoiding JS error");
-		//departure.sendKeys(station);
 		sendEnglish(departure, station);
 		toolbar.ready();
 	}
@@ -85,9 +87,6 @@ public class RouteScreen extends NavBarScreen {
 	public void typeDestination(String station) {
 		destination = ad.findElement(By.xpath(uiMap.getProperty("route.destination")));
 		destination.click();
-		//goToNeededKeyboard();
-		//Utils.sleep(3000, "Avoiding JS error");;
-		//destination.sendKeys(station);
 		sendEnglish(destination, station);
 		toolbar.ready();
 	}
@@ -284,7 +283,6 @@ public class RouteScreen extends NavBarScreen {
 	public void setDeparture(String station){
 		departure = ad.findElement(By.xpath(uiMap.getProperty("route.departure")));
 		departure.click();
-		//Utils.sleep(3000, "Avoiding JS error");
 		departure.sendKeys(station);
 	}
 	
@@ -334,6 +332,7 @@ public class RouteScreen extends NavBarScreen {
 		}
 		return this;
 	}
+	
 
 	public RouteScreen swapLocations(){
 		swapBtn = ad.findElement(By.name(uiMap.getProperty("route.swapButton")));
@@ -360,7 +359,6 @@ public class RouteScreen extends NavBarScreen {
 
 	public RouteScreen verifyMessageApp(String expectedText) {
 		String loc = "//UIAStaticText[contains(@label,'TEXT')]";
-		//String text = "Departure and destination stations are the same";
 		//String debug = ad.findElementByXPath("//UIAWindow[1]/UIAScrollView[1]/UIAStaticText[7]").getText();
 		try {
 			ad.findElementByXPath(loc.replace("TEXT", expectedText));			
@@ -385,8 +383,33 @@ public class RouteScreen extends NavBarScreen {
 		logger.info("Taped destination station");
 		clearBtn = ad.findElement(By.xpath(locDest));
 		ad.tap(1, clearBtn, 3);
-		logger.info("Taped clear button");
 		toolbar.ready();
 		return this;
+	}
+
+	public void setDepartureRus(String depStation) {
+		doEmpty();
+		departure = ad.findElement(By.xpath(uiMap.getProperty("route.departure")));
+		departure.click();
+		goToRusKeyboard();
+		String loc = uiMap.getProperty("keyboard.key");
+		for (int i =0; i < depStation.length();i++){
+			key = ad.findElement(By.xpath(loc.replace("KEY", String.valueOf(depStation.charAt(i)))));
+			key.click();
+			//ad.tap(1, key, 2);
+		}
+	}
+	
+	public void setDestinationRus(String desStation) {
+		doEmpty();
+		destination = ad.findElement(By.xpath(uiMap.getProperty("route.destination")));
+		destination.click();
+		goToRusKeyboard();
+		String loc = uiMap.getProperty("keyboard.key");
+		for (int i =0; i < desStation.length();i++){
+			key = ad.findElement(By.xpath(loc.replace("KEY", String.valueOf(desStation.charAt(i)))));
+			key.click();
+			//ad.tap(1, key, 2);
+		}
 	}
 }

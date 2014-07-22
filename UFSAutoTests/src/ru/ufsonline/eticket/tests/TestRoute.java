@@ -1,11 +1,16 @@
 package ru.ufsonline.eticket.tests;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import ru.ufsonline.eticket.screens.MainScreen.Language;
+import ru.ufsonline.eticket.screens.Toolbar;
 import ru.ufsonline.eticket.utils.GlobalProvider;
 import ru.ufsonline.eticket.utils.Utils;
 
@@ -35,26 +40,45 @@ public class TestRoute extends TestBase {
 	
 	@AfterMethod
 	public void afterMethod(Method m) {
-		if (m.getName().equals("testSetTime") || m.getName().equals("testTextMessageSamePoints") ||
-		 	m.getName().equals("testTicketsCount")){
-			
+		if ((m.getName().equals("testSetTime")) || m.getName().equals("testTextMessageSamePoints") || m.getName().equals("testTicketsCount")){
 			route.back();	
 			main.tapPurchase();
 		}
 	}
 	//1
 	@Test(dataProvider = "GlobalProvider", dataProviderClass = GlobalProvider.class)
-	public void testHintDeparture(String departureStation, String expectedDepartureStation){
+	public void testHintDepartureEng(String departureStation, String expectedDepartureStation){
 		route.setDeparture(departureStation);
 		route.verifyDepartureStation(expectedDepartureStation);
 	}
 	//1
 	@Test(dataProvider = "GlobalProvider", dataProviderClass = GlobalProvider.class)
-	public void testHintDestination(String destinationStation, String expectedDestinationStation){
+	public void testHintDestinationEng(String destinationStation, String expectedDestinationStation){
 		route.setDestination(destinationStation);
 		route.verifyDestinationStation(expectedDestinationStation);
-	}	
-		
+	}
+	//1*
+	@BeforeMethod
+	public void beforeMethod(Method m){
+		if ((m.getName().equals("testHintDepartureRus")) || m.getName().equals("testHintDestinationRus")){
+			route.back();
+			main.setLanguage(Language.RUSSIAN);
+			main.tapPurchase();
+		}
+	}
+	//1*
+	@Test(dataProvider = "GlobalProvider", dataProviderClass = GlobalProvider.class)
+	public void testHintDepartureRus(String departure, String expectedDepStation){
+		route.setDepartureRus(departure);
+		route.verifyDepartureStation(expectedDepStation);
+	}
+	//1*
+	@Test(dataProvider = "GlobalProvider", dataProviderClass = GlobalProvider.class)
+	public void testHintDestinationRus(String destination, String expectedDesStation){
+		route.setDestinationRus(destination);
+		route.verifyDestinationStation(expectedDesStation);
+	}
+	
 	//2	
 	@Test(dataProvider = "GlobalProvider", dataProviderClass = GlobalProvider.class)
 	public void testSwapPoints(String departureStation, String destinationStation){
@@ -68,15 +92,12 @@ public class TestRoute extends TestBase {
 		route.typeDeparture(departureStation);
 		route.typeDestination(destinationStation);
 		route.tapFindWithMessage();
-		Utils.sleep(2000,"Waiting for search results");
 		route.verifyMessageApp(msg);
 	}
 	//5
 	@Test(dataProvider = "GlobalProvider", dataProviderClass = GlobalProvider.class)
 	public void testEmptyFields(String msg){
 		route.doEmpty();
-		route.tapFindWithMessage();
-		Utils.sleep(2000,"Waiting for search results");
 		route.verifyMessageApp(msg);
 	}
 	//7,8
