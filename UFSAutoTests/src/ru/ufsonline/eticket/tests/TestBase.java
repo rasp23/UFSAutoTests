@@ -12,6 +12,7 @@ import org.testng.annotations.BeforeClass;
 
 import ru.ufsonline.eticket.common.AppiumSession;
 import ru.ufsonline.eticket.common.CommonConstants;
+import ru.ufsonline.eticket.screens.BillingInfoScreen;
 import ru.ufsonline.eticket.screens.CarScreen;
 import ru.ufsonline.eticket.screens.MainScreen;
 import ru.ufsonline.eticket.screens.PassengersScreen;
