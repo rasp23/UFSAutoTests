@@ -1,7 +1,10 @@
 package ru.ufsonline.eticket.screens;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import io.appium.java_client.AppiumDriver;
 
@@ -13,7 +16,7 @@ import ru.ufsonline.eticket.objects.Passenger;
 import ru.ufsonline.eticket.utils.TestObject;
 import ru.ufsonline.eticket.utils.Utils;
 
-public class PassengersScreen extends BaseScreen {
+public class PassengersScreen extends NavBarScreen {
 	
 	private WebElement surnameField;
 	
@@ -42,6 +45,8 @@ public class PassengersScreen extends BaseScreen {
 	private WebElement checkInSwitch;
 	
 	private WebElement eRegSwitch;
+	
+	private WebElement coupeGender;
 	
 	private Picker picker;
 
@@ -130,6 +135,14 @@ public class PassengersScreen extends BaseScreen {
 		toolbar.ready();
 		return this;
 	}
+	
+	public PassengersScreen selectGenderCoupe(String genderType) {
+		coupeGender =ad.findElement(By.xpath(uiMap.getProperty("passenger.genderCoupeType")));
+		coupeGender.click();
+		picker.pickItem(genderType);
+		return this;
+		
+	}
 		
 	public PassengersScreen enableCheckIn(String num) {
 		checkInSwitch = ad.findElementByXPath(uiMap.getProperty("passenger.checkin").replace("NUM", num));
@@ -192,7 +205,7 @@ public class PassengersScreen extends BaseScreen {
 	
 	public PassengersScreen verifyMessageApp(String expectedText) {
 		String loc = "//UIAStaticText[contains(@label,\"TEXT\")]";
-		String debug = loc.replace("TEXT", expectedText);
+		//String debug = loc.replace("TEXT", expectedText);
 		try {
 			ad.findElementByXPath(loc.replace("TEXT", expectedText));			
 		} catch(Exception e) {
@@ -203,11 +216,62 @@ public class PassengersScreen extends BaseScreen {
 	}
 
 	public PassengersScreen verifyEregSwitchOn() {
-		eRegSwitch = ad.findElement(By.xpath(uiMap.getProperty("passenger.eregSwitch")));
+		eRegSwitch = ad.findElement(By.xpath(uiMap.getProperty("passenger.checkin")));
 		String switchOn = "1";
 		//String debug  = eRegSwitch.getAttribute("value");
 		Assert.assertTrue(eRegSwitch.getAttribute("value").equals(switchOn), "Electronic regisration is not turned on as a default!");
 		return this;
 	}
+
+	public PassengersScreen setDate(String passNum, String date) {
+		selectBirthDate(passNum,date);
+		return this;
+	}
 	
+	public PassengersScreen verifySetedDate(String date) {
+		String birthdayDate = ad.findElement(By.xpath(uiMap.getProperty("passenger.birthday_date"))).getAttribute("value");
+		Assert.assertNotEquals(birthdayDate, date, "There is an opportunity to select date < 1900!");
+		return this;
+	}
+
+	public PassengersScreen setCurrDateMinus(String passNum, String minusYearNum, String minusDayNum) {
+		List<String> lcurDate = new ArrayList<String>();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("E d MMMM, yyyy", Locale.US);
+		String curDate = dateFormat.format(new Date());
+		lcurDate = Utils.getList(curDate, " ");
+		Integer curYear = Integer.valueOf(lcurDate.get(3));
+		Integer curDay = Integer.valueOf(lcurDate.get(1));
+		String curMonth = lcurDate.get(2);
+		String neededYear = String.valueOf(curYear-Integer.valueOf(minusYearNum));
+		String neededDay = String.valueOf(curDay-Integer.valueOf(minusDayNum));
+		String neededDate = curMonth+neededDay+","+neededYear;
+		selectBirthDate(passNum,neededDate);
+		return this;
+	}
+
+	public PassengersScreen verifyDateAfterCur(String passNum, String minusYearNum, String minusDayNum) {
+		setCurrDateMinus(passNum, "0", "0"); // Setting current date for second passenger
+		String birthdayDateCur = ad.findElement(By.xpath(uiMap.getProperty("passenger.birthday_date"))).getAttribute("value");
+		setCurrDateMinus(passNum, minusYearNum, minusDayNum);
+		String birthdayDateAfter = ad.findElement(By.xpath(uiMap.getProperty("passenger.birthday_date"))).getAttribute("value");
+		Assert.assertNotEquals(birthdayDateCur, birthdayDateAfter, "There is an opportunity to select date > current!");
+		return this;
+
+	}
+
+	public PassengersScreen setCoupeNoGender() {
+		coupeGender =ad.findElement(By.xpath(uiMap.getProperty("passenger.genderCoupeType")));
+		coupeGender.click();
+		return this;
+	}
+
+	public void verifyGenderCoupe(String expectedGenderType) {
+		coupeGender =ad.findElement(By.xpath(uiMap.getProperty("passenger.genderCoupeType")));
+		String actualGenderType = coupeGender.getAttribute("value");
+		Assert.assertEquals(actualGenderType, expectedGenderType);
+	}
+
+
+
+
 }

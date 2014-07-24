@@ -6,7 +6,7 @@
 		    <parameter>debugSearch</parameter>	
 		    <parameter>002Й</parameter>	
 		    <parameter>3</parameter>
-		    <parameter>1</parameter>
+		    <parameter>2</parameter>
 		    <parameter>Foreign-issued document</parameter>
 		    <parameter>Foreign-issued document</parameter>
 		</case>	
@@ -15,5 +15,64 @@
 		<case> 
 		    <parameter>Error in fields filling: Passenger №2Child 5-10: 'Birthdate'</parameter>
 		</case>	
+	</test>
+	<test name="testPassBirthYear">
+		<case>
+			<parameter>2</parameter>
+			<!-- <parameter>January,1,1899</parameter> -->
+			<parameter>January,1,1990</parameter>
+		</case>
+	</test>
+	<test name="testPassCurrBirth">
+		<case>
+			<parameter>2</parameter>
+			<parameter>10</parameter>
+			<parameter>0</parameter>
+			<parameter>Error in fields filling: Passenger №2Child 5-10: 'Birthdate'</parameter>	
+		</case>
+		<case>
+			<parameter>2</parameter>
+			<parameter>6</parameter>
+			<parameter>0</parameter>
+			<parameter>Fields are not filled in! Passenger №1Adult: 'Name' 'Surname' 'Document series and number' 'E-mail' 'Gender' 'Birthdate' 'Birth place' Passenger №2Child 5-10: 'Name' 'Surname' 'Document series and number' 'Gender' 'Birth place'</parameter>
+		</case>
+	</test>
+	<test name="testPassBirthDay">
+		<case>
+			<parameter>2</parameter>
+			<parameter>0</parameter>
+			<parameter>-1</parameter>
+		</case>
+	</test>
+	<test name="testNoGenderCoupe">
+		<case>
+			<parameter>To select the type coupe must specify gender for all passengers.</parameter>
+		</case>
+	</test>
+	<test name="testOneGenderCoupe">
+		<case>
+			<parameter>1</parameter>
+			<parameter>Female</parameter>
+			<parameter>To select the type coupe must specify gender for all passengers.</parameter>
+		</case>
+	</test>
+	<test name="testAllGenderCoupe">
+		<case>
+			<parameter>1</parameter>
+			<parameter>2</parameter>
+			<parameter>January,15,2008</parameter> <!-- correct date -->
+			<parameter>Female</parameter>
+			<parameter>Male</parameter>
+			<parameter>Mixed coupe</parameter>
+			<parameter>Select the type of coupe</parameter>
+			<parameter>Fields are not filled in! Passenger №1Adult: 'Name' 'Surname' 'Document series and number' 'E-mail' 'Birthdate' 'Birth place' Passenger №2Child 5-10: 'Name' 'Surname' 'Document series and number' 'Birth place'</parameter>
+		</case>
+	</test>
+	<test name="testDigitsSurname">
+		<case>
+			<parameter>1</parameter>
+			<parameter>4</parameter>
+			<parameter>Incorrect symbol</parameter>
+		</case>
 	</test>
 </test-config>	
