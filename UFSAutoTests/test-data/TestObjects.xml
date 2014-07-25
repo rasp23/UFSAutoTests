@@ -70,5 +70,216 @@
 			<property name="cvn">575</property>
 			<property name="expDate">02,2021</property>
 		</properties>
+	</data>
+<!-- passengers for validation necessary fields -->		
+	<data name = "PassengerEmpty">
+		<properties>
+			<property name="surname"></property>
+			<property name="name"></property>
+			<property name="secondName"></property>
+			<property name="idDocType"></property>
+			<property name="docNumber"></property>
+			<property name="gender"></property>
+			<property name="birthDate"></property>
+			<property name="bithPlace"></property>
+			<property name="email"></property>
+			<property name="phone"></property>
+			<property name="onlineCheckin"></property>		
+		</properties>	
+	</data>
+	<data name = "Passenger_2GenderMale">
+		<properties>
+			<property name="surname"></property>
+			<property name="name"></property>
+			<property name="secondName"></property>
+			<property name="idDocType"></property>
+			<property name="docNumber"></property>
+			<property name="gender">Male</property>
+			<property name="birthDate"></property>
+			<property name="bithPlace"></property>
+			<property name="email"></property>
+			<property name="phone"></property>
+			<property name="onlineCheckin"></property>		
+		</properties>	
+	</data>
+	<data name = "Passenger_1GenderFemale">
+		<properties>
+			<property name="surname"></property>
+			<property name="name"></property>
+			<property name="secondName"></property>
+			<property name="idDocType"></property>
+			<property name="docNumber"></property>
+			<property name="gender">Female</property>
+			<property name="birthDate"></property>
+			<property name="bithPlace"></property>
+			<property name="email"></property>
+			<property name="phone"></property>
+			<property name="onlineCheckin"></property>		
+		</properties>	
+	</data>
+	<data name = "NOptions_2Passenger_1">
+		<properties>
+			<property name="surname">Иванов-Петров Сидоров</property>
+			<property name="name"></property>
+			<property name="secondName"></property>
+			<property name="idDocType"></property>
+			<property name="docNumber"></property>
+			<property name="gender">Female</property>
+			<property name="birthDate"></property>
+			<property name="bithPlace"></property>
+			<property name="email"></property>
+			<property name="phone"></property>
+			<property name="onlineCheckin"></property>		
+		</properties>	
+	</data>
+	<data name = "NOptions_3Passenger_1">
+		<properties>
+			<property name="surname">Иванов-Петров Сидоров</property>
+			<property name="name">Иван-Петр Сидор</property>
+			<property name="secondName"></property>
+			<property name="idDocType"></property>
+			<property name="docNumber"></property>
+			<property name="gender">Female</property>
+			<property name="birthDate"></property> 
+			<property name="bithPlace"></property>
+			<property name="email"></property>
+			<property name="phone"></property>
+			<property name="onlineCheckin"></property>		
+		</properties>	
+	</data>
+	<data name = "NOptions_4Passenger_1">
+		<properties>
+			<property name="surname">Иванов-Петров Сидоров</property>
+			<property name="name">Иван-Петр Сидор</property>
+			<property name="secondName"></property>
+			<property name="idDocType">RF Passport</property>
+			<property name="docNumber">abcабв12345678</property>
+			<property name="gender">Female</property>
+			<property name="birthDate"></property> 
+			<property name="bithPlace"></property>
+			<property name="email"></property>
+			<property name="phone"></property>
+			<property name="onlineCheckin"></property>		
+		</properties>	
 	</data>	
+	<data name = "NOptions_5Passenger_1">
+		<properties>
+			<property name="surname">Иванов-Петров Сидоров</property>
+			<property name="name">Иван-Петр Сидор</property>
+			<property name="secondName"></property>
+			<property name="idDocType">RF Passport</property>
+			<property name="docNumber">abcабв12345678</property>
+			<property name="gender">Female</property>
+			<property name="birthDate"></property> 
+			<property name="bithPlace">Петропавловск Kamchatskiy</property>
+			<property name="email"></property>
+			<property name="phone"></property>
+			<property name="onlineCheckin"></property>		
+		</properties>	
+	</data>
+	<data name = "NOptions_6Passenger_1">
+		<properties>
+			<property name="surname">Иванов-Петров Сидоров</property>
+			<property name="name">Иван-Петр Сидор</property>
+			<property name="secondName"></property>
+			<property name="idDocType">RF Passport</property>
+			<property name="docNumber">abcабв12345678</property>
+			<property name="gender">Female</property>
+			<property name="birthDate"></property> 
+			<property name="bithPlace">Петропавловск Kamchatskiy</property>
+			<property name="email">ufs.test001@gmail.com</property>
+			<property name="phone"></property>
+			<property name="onlineCheckin"></property>		
+		</properties>	
+	</data>
+	<data name = "NOptions_7Passenger_1">
+		<properties>
+			<property name="surname">Иванов-Петров Сидоров</property>
+			<property name="name">Иван-Петр Сидор</property>
+			<property name="secondName"></property>
+			<property name="idDocType">RF Passport</property>
+			<property name="docNumber">abcабв12345678</property>
+			<property name="gender">Female</property>
+			<property name="birthDate">January,1,1990</property> 
+			<property name="bithPlace">Петропавловск Kamchatskiy</property>
+			<property name="email">ufs.test001@gmail.com</property>
+			<property name="phone"></property>
+			<property name="onlineCheckin"></property>		
+		</properties>	
+	</data>					
+	<data name = "NOptions_2Passenger_2">
+		<properties>
+			<property name="surname"></property>
+			<property name="name"></property>
+			<property name="secondName"></property>
+			<property name="idDocType"></property>
+			<property name="docNumber"></property>
+			<property name="gender">Male</property>
+			<property name="birthDate">January,01,2008</property> 
+			<property name="bithPlace"></property>
+			<property name="email"></property>
+			<property name="phone"></property>
+			<property name="onlineCheckin"></property>		
+		</properties>	
+	</data>
+	<data name = "NOptions_3Passenger_2">
+		<properties>
+			<property name="surname">Иванов-Петров Сидоров</property>
+			<property name="name"></property>
+			<property name="secondName"></property>
+			<property name="idDocType"></property>
+			<property name="docNumber"></property>
+			<property name="gender">Male</property>
+			<property name="birthDate">January,01,2008</property> 
+			<property name="bithPlace"></property>
+			<property name="email"></property>
+			<property name="phone"></property>
+			<property name="onlineCheckin"></property>		
+		</properties>	
+	</data>	
+	<data name = "NOptions_4Passenger_2">
+		<properties>
+			<property name="surname">Иванов-Петров Сидоров</property>
+			<property name="name">Иван-Петр Сидор</property>
+			<property name="secondName"></property>
+			<property name="idDocType"></property>
+			<property name="docNumber"></property>
+			<property name="gender">Male</property>
+			<property name="birthDate">January,01,2008</property> 
+			<property name="bithPlace"></property>
+			<property name="email"></property>
+			<property name="phone"></property>
+			<property name="onlineCheckin"></property>		
+		</properties>	
+	</data>	
+	<data name = "NOptions_5Passenger_2">
+		<properties>
+			<property name="surname">Иванов-Петров Сидоров</property>
+			<property name="name">Иван-Петр Сидор</property>
+			<property name="secondName"></property>
+			<property name="idDocType"></property>
+			<property name="docNumber">abcабв12345678</property>
+			<property name="gender">Male</property>
+			<property name="birthDate">January,01,2008</property> 
+			<property name="bithPlace"></property>
+			<property name="email"></property>
+			<property name="phone"></property>
+			<property name="onlineCheckin"></property>		
+		</properties>	
+	</data>
+	<data name = "NOptions_6Passenger_2">
+		<properties>
+			<property name="surname">Иванов-Петров Сидоров</property>
+			<property name="name">Иван-Петр Сидор</property>
+			<property name="secondName"></property>
+			<property name="idDocType"></property>
+			<property name="docNumber">abcабв12345678</property>
+			<property name="gender">Male</property>
+			<property name="birthDate">January,01,2008</property> 
+			<property name="bithPlace">Петропавловск Kamchatskiy</property>
+			<property name="email"></property>
+			<property name="phone"></property>
+			<property name="onlineCheckin"></property>		
+		</properties>	
+	</data>																			
 </test-data>

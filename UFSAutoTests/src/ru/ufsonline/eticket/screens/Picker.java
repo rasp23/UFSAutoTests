@@ -31,5 +31,5 @@ public class Picker extends BaseScreen {
 			wheel.sendKeys(s);
 		}
 		toolbar.ready();
-	}
+ 	}
 }

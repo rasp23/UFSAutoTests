@@ -193,6 +193,7 @@ public class PassengersScreen extends NavBarScreen {
 		return this;
 	}
 	
+
 	public PassengersScreen fillPassengersData(String sPassengers) {
 		List<String> lPassengers = new ArrayList<String>();
 		lPassengers = Utils.getList(sPassengers);

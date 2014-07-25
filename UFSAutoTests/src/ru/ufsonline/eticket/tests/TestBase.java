@@ -15,6 +15,7 @@ import ru.ufsonline.eticket.common.CommonConstants;
 import ru.ufsonline.eticket.screens.BillingInfoScreen;
 import ru.ufsonline.eticket.screens.CarScreen;
 import ru.ufsonline.eticket.screens.MainScreen;
+import ru.ufsonline.eticket.screens.NavBarScreen;
 import ru.ufsonline.eticket.screens.PassengersScreen;
 import ru.ufsonline.eticket.screens.PaymentDeatailsScreen;
 import ru.ufsonline.eticket.screens.ReviewOrderScreen;
@@ -49,6 +50,8 @@ public class TestBase {
 	
 	protected ReviewOrderScreen reviewOrder = null;
 	
+	protected NavBarScreen navbar; 
+	
 	@BeforeClass
 	public void beforeClass() {		
 		PropertiesUtil config = new PropertiesUtil(CommonConstants.CONFIG_FILE);
@@ -69,7 +72,12 @@ public class TestBase {
 		
 		ad.manage().timeouts().implicitlyWait(AppiumSession.timeout/500, TimeUnit.SECONDS);			
 		agreement = new UserAgreementDialog(ad);
-		main = agreement.acceptUserAgreement();		
+		main = agreement.acceptUserAgreement();
+		navbar = new NavBarScreen(ad);
+	}
+	
+	public void resetApp(){
+		ad.resetApp();
 	}
 	
 	@AfterClass

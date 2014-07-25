@@ -2,13 +2,17 @@
 <test-config xmlns="http://utils.applique.com">	
 	<test name="testDefaultEngDoc">
 		<case> 
-		    <!-- <parameter>Search002</parameter> -->
+		    <!-- <parameter>Search002</parameter> 
 		    <parameter>debugSearch</parameter>	
-		    <parameter>002Й</parameter>	
+		    <parameter>020У</parameter>	
 		    <parameter>3</parameter>
-		    <parameter>2</parameter>
+		    <parameter>2</parameter> -->
 		    <parameter>Foreign-issued document</parameter>
-		    <parameter>Foreign-issued document</parameter>
+		</case>	
+	</test>
+	<test name="testEreg">
+		<case> 
+		    
 		</case>	
 	</test>
 	<test name="testPassInvalidDataMsg">
@@ -64,8 +68,6 @@
 			<parameter>Female</parameter>
 			<parameter>Male</parameter>
 			<parameter>Mixed coupe</parameter>
-			<parameter>Select the type of coupe</parameter>
-			<parameter>Fields are not filled in! Passenger №1Adult: 'Name' 'Surname' 'Document series and number' 'E-mail' 'Birthdate' 'Birth place' Passenger №2Child 5-10: 'Name' 'Surname' 'Document series and number' 'Birth place'</parameter>
 		</case>
 	</test>
 	<test name="testDigitsSurname">
@@ -73,6 +75,113 @@
 			<parameter>1</parameter>
 			<parameter>4</parameter>
 			<parameter>Incorrect symbol</parameter>
+		</case>
+	</test>
+	<test name="testPassDataByStep">
+		<case>
+			<parameter>1</parameter>
+			<parameter>2</parameter>
+			<parameter>PassengerEmpty</parameter>
+			<parameter>PassengerEmpty</parameter>
+			<parameter>Error in fields filling: Passenger №2Child 5-10: 'Birthdate'</parameter>
+		</case>
+		<case>
+			<parameter>1</parameter>
+			<parameter>2</parameter>
+			<parameter>PassengerEmpty</parameter>
+			<parameter>Passenger_2GenderMale</parameter>
+			<parameter>Error in fields filling: Passenger №2Child 5-10: 'Birthdate'</parameter>
+		</case>
+		<case>
+			<parameter>1</parameter>
+			<parameter>2</parameter>
+			<parameter>Passenger_1GenderFemale</parameter>
+			<parameter>PassengerEmpty</parameter>
+			<parameter>Error in fields filling: Passenger №2Child 5-10: 'Birthdate'</parameter>
+		</case>
+		<case>
+			<parameter>1</parameter>
+			<parameter>2</parameter>
+			<parameter>Passenger_1GenderFemale</parameter>
+			<parameter>Passenger_2GenderMale</parameter>
+			<parameter>Error in fields filling: Passenger №2Child 5-10: 'Birthdate'</parameter>
+		</case>
+		<case>
+			<parameter>1</parameter>
+			<parameter>2</parameter>
+			<parameter>Passenger_1GenderFemale</parameter>
+			<parameter>NOptions_2Passenger_2</parameter>
+			<parameter>Fields are not filled in! Passenger №1Adult: 'Name' 'Surname' 'Document series and number' 'E-mail' 'Birthdate' 'Birth place' Passenger №2Child 5-10: 'Name' 'Surname' 'Document series and number' 'Birth place'</parameter>
+		</case>
+		<case>
+			<parameter>1</parameter>
+			<parameter>2</parameter>
+			<parameter>NOptions_2Passenger_1</parameter>
+			<parameter>NOptions_2Passenger_2</parameter>
+			<parameter>Fields are not filled in! Passenger №1Adult: 'Name' 'Document series and number' 'E-mail' 'Birthdate' 'Birth place' Passenger №2Child 5-10: 'Name' 'Surname' 'Document series and number' 'Birth place'</parameter>
+		</case>
+		<case>
+			<parameter>1</parameter>
+			<parameter>2</parameter>
+			<parameter>NOptions_3Passenger_1</parameter>
+			<parameter>NOptions_2Passenger_2</parameter>
+			<parameter>Fields are not filled in! Passenger №1Adult: 'Document series and number' 'E-mail' 'Birthdate' 'Birth place' Passenger №2Child 5-10: 'Name' 'Surname' 'Document series and number' 'Birth place'</parameter>
+		</case>
+		<case>
+			<parameter>1</parameter>
+			<parameter>2</parameter>
+			<parameter>NOptions_4Passenger_1</parameter>
+			<parameter>NOptions_2Passenger_2</parameter>
+			<parameter>Fields are not filled in! Passenger №1Adult: 'E-mail' 'Birthdate' 'Birth place' Passenger №2Child 5-10: 'Name' 'Surname' 'Document series and number' 'Birth place'</parameter>
+		</case>
+		<case>
+			<parameter>1</parameter>
+			<parameter>2</parameter>
+			<parameter>NOptions_5Passenger_1</parameter>
+			<parameter>NOptions_2Passenger_2</parameter>
+			<parameter>Fields are not filled in! Passenger №1Adult: 'E-mail' 'Birthdate' Passenger №2Child 5-10: 'Name' 'Surname' 'Document series and number' 'Birth place'</parameter>
+		</case>
+		<case>
+			<parameter>1</parameter>
+			<parameter>2</parameter>
+			<parameter>NOptions_6Passenger_1</parameter>
+			<parameter>NOptions_2Passenger_2</parameter>
+			<parameter>Fields are not filled in! Passenger №1Adult: 'Birthdate' Passenger №2Child 5-10: 'Name' 'Surname' 'Document series and number' 'Birth place'</parameter>
+		</case>
+		<case>
+			<parameter>1</parameter>
+			<parameter>2</parameter>
+			<parameter>NOptions_6Passenger_1</parameter>
+			<parameter>NOptions_3Passenger_2</parameter>
+			<parameter>Fields are not filled in! Passenger №1Adult: 'Birthdate' Passenger №2Child 5-10: 'Name' 'Document series and number' 'Birth place'</parameter>
+		</case>
+		<case>
+			<parameter>1</parameter>
+			<parameter>2</parameter>
+			<parameter>NOptions_6Passenger_1</parameter>
+			<parameter>NOptions_4Passenger_2</parameter>
+			<parameter>Fields are not filled in! Passenger №1Adult: 'Birthdate' Passenger №2Child 5-10: 'Document series and number' 'Birth place'</parameter>
+		</case>
+		<case>
+			<parameter>1</parameter>
+			<parameter>2</parameter>
+			<parameter>NOptions_6Passenger_1</parameter>
+			<parameter>NOptions_5Passenger_2</parameter>
+			<parameter>Fields are not filled in! Passenger №1Adult: 'Birthdate' Passenger №2Child 5-10: 'Birth place'</parameter>
+		</case>
+		<case>
+			<parameter>1</parameter>
+			<parameter>2</parameter>
+			<parameter>NOptions_6Passenger_1</parameter>
+			<parameter>NOptions_6Passenger_2</parameter>
+			<parameter>Fields are not filled in! Passenger №1Adult: 'Birthdate'</parameter>
+		</case>
+		<case>
+			<parameter>1</parameter>
+			<parameter>2</parameter>
+			<parameter>NOptions_7Passenger_1</parameter>
+			<parameter>NOptions_6Passenger_2</parameter>
+			<parameter>Error in fields filling: Passenger №1Adult: 'Incorrect document format'</parameter>
 		</case>
 	</test>
 </test-config>	
