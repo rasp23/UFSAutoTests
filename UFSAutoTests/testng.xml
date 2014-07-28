@@ -1,0 +1,7 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Default suite" verbose="1">
+    <listeners>
+      <listener class-name="ru.ufsonline.eticket.common.TestListener"></listener>
+  </listeners>
+</suite>
