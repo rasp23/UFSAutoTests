@@ -1,8 +1,6 @@
 package ru.ufsonline.eticket.tests;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -10,11 +8,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import ru.ufsonline.eticket.screens.MainScreen.Language;
-import ru.ufsonline.eticket.screens.Toolbar;
 import ru.ufsonline.eticket.utils.GlobalProvider;
-import ru.ufsonline.eticket.utils.Utils;
 
-public class TestRoute extends TestBase {
+public class TestRoute extends TestBase {	
 	
 	@BeforeClass
 	public void beforeClass() {
@@ -65,6 +61,7 @@ public class TestRoute extends TestBase {
 			main.setLanguage(Language.RUSSIAN);
 			main.tapPurchase();
 		}
+				
 	}
 	//1*
 	@Test(dataProvider = "GlobalProvider", dataProviderClass = GlobalProvider.class)
@@ -72,6 +69,7 @@ public class TestRoute extends TestBase {
 		route.setDepartureRus(departure);
 		route.verifyDepartureStation(expectedDepStation);
 	}
+	
 	//1*
 	@Test(dataProvider = "GlobalProvider", dataProviderClass = GlobalProvider.class)
 	public void testHintDestinationRus(String destination, String expectedDesStation){
@@ -84,7 +82,7 @@ public class TestRoute extends TestBase {
 	public void testSwapPoints(String departureStation, String destinationStation){
 		route.typeDeparture(departureStation);
 		route.typeDestination(destinationStation);
-		route.verifyLocations();
+		route.verifySwapLocations();
 	}
 	//3,4,6
 	@Test(dataProvider = "GlobalProvider", dataProviderClass = GlobalProvider.class)
