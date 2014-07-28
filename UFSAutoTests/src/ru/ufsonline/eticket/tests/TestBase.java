@@ -17,6 +17,7 @@ import ru.ufsonline.eticket.logger.LoggerFactory;
 import ru.ufsonline.eticket.screens.BillingInfoScreen;
 import ru.ufsonline.eticket.screens.CarScreen;
 import ru.ufsonline.eticket.screens.MainScreen;
+import ru.ufsonline.eticket.screens.NavBarScreen;
 import ru.ufsonline.eticket.screens.PassengersScreen;
 import ru.ufsonline.eticket.screens.PaymentDeatailsScreen;
 import ru.ufsonline.eticket.screens.ReviewOrderScreen;
@@ -53,6 +54,8 @@ public class TestBase {
 	
 	private Logger logger = LoggerFactory.getLogger(); 
 	
+	protected NavBarScreen navbar;
+	
 	@BeforeClass
 	public void beforeClass() {		
 		logger.info("==========================================");
@@ -80,6 +83,11 @@ public class TestBase {
 		ad.manage().timeouts().implicitlyWait(AppiumSession.timeout/500, TimeUnit.SECONDS);			
 		agreement = new UserAgreementDialog(ad);
 		main = agreement.acceptUserAgreement();	
+		navbar = new NavBarScreen(ad);
+	}
+	
+	public void resetApp(){
+		ad.resetApp();
 	}
 	
 	@AfterClass

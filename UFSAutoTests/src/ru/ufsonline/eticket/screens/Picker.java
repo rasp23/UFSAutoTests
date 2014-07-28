@@ -32,5 +32,5 @@ public class Picker extends BaseScreen {
 			logger.info(String.format("Selected '%s' value from picker", s));
 		}
 		toolbar.ready();
-	}
+ 	}
 }

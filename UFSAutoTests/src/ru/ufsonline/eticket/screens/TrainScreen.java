@@ -1,10 +1,11 @@
 package ru.ufsonline.eticket.screens;
 
-import io.appium.java_client.AppiumDriver;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -13,6 +14,8 @@ import org.testng.Assert;
 import ru.ufsonline.eticket.utils.Utils;
 
 public class TrainScreen extends NavBarScreen {
+	
+	private WebElement title; 
 	
 	private WebElement sortByNumBtn;
 	
@@ -26,8 +29,11 @@ public class TrainScreen extends NavBarScreen {
 	
 	private WebElement routeCloseBtn;
 	
+	private WebElement back;
+	
 	public TrainScreen(AppiumDriver ad) {
 		super(ad);
+		title = ad.findElement(MobileBy.AccessibilityId(uiMap.getProperty("train.title")));		
 	}
 	
 	public String verifyTrainPresent(String expectedTrain) {
@@ -129,5 +135,10 @@ public class TrainScreen extends NavBarScreen {
 	routeCloseBtn.click();
 	logger.info("Taped close button");
 	return this;
+	}
+
+	public void back() {
+		back = ad.findElementByAccessibilityId(uiMap.getProperty("navbar.back"));
+		back.click();
 	}
 }

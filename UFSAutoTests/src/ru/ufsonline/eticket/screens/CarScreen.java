@@ -17,6 +17,8 @@ public class CarScreen extends NavBarScreen {
 	private WebElement servicesBtn;
 	
 	private WebElement closeServicesBtn;
+	
+	private WebElement back;
 
 	public CarScreen(AppiumDriver ad) {
 		super(ad);
@@ -80,10 +82,14 @@ public class CarScreen extends NavBarScreen {
 
 	public CarScreen closeServices() {
 		closeServicesBtn = ad.findElement(By.xpath(uiMap.getProperty("car.sericesWindowClose")));
-		closeServicesBtn.click();		
+		closeServicesBtn.click();
 		logger.info("Taped close services button");
 		return this;
 	}
-	
+
+	public void back() {
+		back = ad.findElementByAccessibilityId(uiMap.getProperty("navbar.back"));
+		back.click();
+	}
 
 }
