@@ -15,6 +15,7 @@ public class Toolbar extends BaseScreen {
 	public void ready() {
 		ready = ad.findElementByXPath(uiMap.getProperty("toolbar.ready"));
 		ready.click();
+		logger.info("Clicked 'Ready' on toolbar");
 	}
 
 }

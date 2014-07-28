@@ -11,7 +11,7 @@ import ru.ufsonline.eticket.objects.Passenger;
 import ru.ufsonline.eticket.utils.TestObject;
 import ru.ufsonline.eticket.utils.Utils;
 
-public class PassengersScreen extends BaseScreen {
+public class PassengersScreen extends NavBarScreen {
 	
 	private WebElement surnameField;
 	

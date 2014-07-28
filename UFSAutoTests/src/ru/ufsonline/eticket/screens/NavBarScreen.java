@@ -9,7 +9,7 @@ public class NavBarScreen extends BaseScreen {
 	private WebElement back;
 
 	public NavBarScreen(AppiumDriver ad) {
-		super(ad);				
+		super(ad);	
 	}
 	
 	public void back() {

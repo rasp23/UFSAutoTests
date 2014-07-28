@@ -1,15 +1,13 @@
 package ru.ufsonline.eticket.screens;
 
-import java.util.Set;
+import io.appium.java_client.AppiumDriver;
 
 import org.openqa.selenium.WebElement;
 
 import ru.ufsonline.eticket.objects.PaymentInfo;
 import ru.ufsonline.eticket.utils.TestObject;
-import ru.ufsonline.eticket.utils.Utils;
-import io.appium.java_client.AppiumDriver;
 
-public class BillingInfoScreen extends BaseScreen {
+public class BillingInfoScreen extends NavBarScreen {
 	
 	private WebElement firstNameField;
 	
@@ -24,37 +22,31 @@ public class BillingInfoScreen extends BaseScreen {
 	public BillingInfoScreen(AppiumDriver ad) {
 		super(ad);		
 		toolbar = new Toolbar(ad);		
+		waitForText(uiMap.getProperty("navbar.title"), "Payment");
+		setWebViewContext();
 	}
 
 	public BillingInfoScreen typeFirstName(String firstName) {
-		Utils.sleep(10000);
-		Set<String> contextNames = ad.getContextHandles();
-		String newContext = String.valueOf(contextNames.toArray()[1]); 
-		ad.context(newContext);
-		firstNameField = ad.findElementByXPath("//UIATextField[1]");
+		firstNameField = ad.findElementByXPath(uiMap.getProperty("billing.first_name"));
 		firstNameField.sendKeys(firstName);
-		toolbar.ready();
 		return this;
 	}
 	
 	public BillingInfoScreen typeLastName(String lastName) {
 		lastNameField = ad.findElementByXPath(uiMap.getProperty("billing.last_name"));
 		lastNameField.sendKeys(lastName);
-		toolbar.ready();
 		return this;
 	}
 	
 	public BillingInfoScreen typePhone(String phone) {
 		phoneField = ad.findElementByXPath(uiMap.getProperty("billing.phone"));
 		phoneField.sendKeys(phone);
-		toolbar.ready();
 		return this;
 	}
 	
 	public BillingInfoScreen typeEmail(String email) {
 		emailField = ad.findElementByXPath(uiMap.getProperty("billing.email"));
 		emailField.sendKeys(email);
-		toolbar.ready();
 		return this;
 	}
 	
@@ -73,4 +65,6 @@ public class BillingInfoScreen extends BaseScreen {
 		
 		return this;
 	}
+	
+	
 }

@@ -12,6 +12,8 @@ import org.testng.annotations.BeforeClass;
 
 import ru.ufsonline.eticket.common.AppiumSession;
 import ru.ufsonline.eticket.common.CommonConstants;
+import ru.ufsonline.eticket.logger.Logger;
+import ru.ufsonline.eticket.logger.LoggerFactory;
 import ru.ufsonline.eticket.screens.BillingInfoScreen;
 import ru.ufsonline.eticket.screens.CarScreen;
 import ru.ufsonline.eticket.screens.MainScreen;
@@ -49,31 +51,39 @@ public class TestBase {
 	
 	protected ReviewOrderScreen reviewOrder = null;
 	
+	private Logger logger = LoggerFactory.getLogger(); 
+	
 	@BeforeClass
 	public void beforeClass() {		
+		logger.info("==========================================");
+		logger.info(this.getClass().getName());
+		logger.info("==========================================");
+		
 		PropertiesUtil config = new PropertiesUtil(CommonConstants.CONFIG_FILE);
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setCapability(CapabilityType.VERSION, config.getProperty("version"));
 		capabilities.setCapability(CapabilityType.PLATFORM, config.getProperty("platform"));
 		capabilities.setCapability("device", config.getProperty("device"));
 		capabilities.setCapability("app", config.getProperty("app_path"));
+		capabilities.setCapability("newCommandTimeout", AppiumSession.timeout/6000);
+		
 		AppiumSession.uiMap = new PropertiesUtil(CommonConstants.UIMAP);	
-		AppiumSession.timeout = Long.valueOf(config.getProperty("timeout"));
+		AppiumSession.timeout = Long.valueOf(config.getProperty("timeout"));	
 		
 		try {
 			ad = new AppiumDriver(new URL(config.getProperty("appium_server")), capabilities);			
-			Utils.sleep(1000);
+			Utils.sleep(AppiumSession.timeout/30);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
 		
 		ad.manage().timeouts().implicitlyWait(AppiumSession.timeout/500, TimeUnit.SECONDS);			
 		agreement = new UserAgreementDialog(ad);
-		main = agreement.acceptUserAgreement();		
+		main = agreement.acceptUserAgreement();	
 	}
 	
 	@AfterClass
 	public void afterClass() {
-		ad.quit();
+		ad.quit();		
 	}
 }

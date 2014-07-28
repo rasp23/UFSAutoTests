@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-public class CarScreen extends BaseScreen {
+public class CarScreen extends NavBarScreen {
 	
 	private WebElement selectSeat;
 	
@@ -80,7 +80,7 @@ public class CarScreen extends BaseScreen {
 
 	public CarScreen closeServices() {
 		closeServicesBtn = ad.findElement(By.xpath(uiMap.getProperty("car.sericesWindowClose")));
-		closeServicesBtn.click();
+		closeServicesBtn.click();		
 		logger.info("Taped close services button");
 		return this;
 	}

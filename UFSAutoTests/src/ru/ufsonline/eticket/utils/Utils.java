@@ -3,7 +3,12 @@ package ru.ufsonline.eticket.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import ru.ufsonline.eticket.logger.Logger;
+import ru.ufsonline.eticket.logger.LoggerFactory;
+
 public class Utils {
+	
+	private static Logger logger = LoggerFactory.getLogger();
 	
 	public static void sleep(long millis) {
 		sleep(millis, null);
@@ -17,7 +22,7 @@ public class Utils {
 		String str = "";
 		String output = "Sleep: POS PER%";
 		try {
-			System.out.println("Sleep for " + millis + " ms."
+			logger.info("Sleep for " + millis + " ms."
 					+ (info != null ? " FOR: " + info : ""));
 			if (millis > minimum) {
 				str = "[";
@@ -26,13 +31,13 @@ public class Utils {
 				if (modulo > 0)
 					str += "-";
 				str += "]";
-				System.out.println(output.replace("POS", str).replace("PER",
+				logger.info(output.replace("POS", str).replace("PER",
 						"0"));
 				while (current + modulo < millis) {
 					Thread.sleep(minimum);
 					current += minimum;
 					str = str.replaceFirst("-", "|");
-					System.out.println(output.replace("POS", str).replace(
+					logger.info(output.replace("POS", str).replace(
 							"PER", String.valueOf(current * 100 / millis)));
 				}
 			}

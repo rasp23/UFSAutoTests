@@ -16,7 +16,9 @@ public class UserAgreementDialog extends BaseScreen {
 	
 	public MainScreen acceptUserAgreement() {
 		acceptButton.click();
+		logger.info("Clicked 'I accept...' button");
 		ad.switchTo().alert().accept();
+		logger.info("Accept '...Use Your Current Location' alert");
 		return new MainScreen(ad);
 	}
 
