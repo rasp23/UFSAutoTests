@@ -1,8 +1,9 @@
 package ru.ufsonline.eticket.screens;
 
-import java.util.HashMap;
-
 import io.appium.java_client.AppiumDriver;
+
+import java.util.HashMap;
+import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -33,7 +34,9 @@ public class BaseScreen {
 	}	
 	
 	public void verifyText(WebElement element, String expectedText) {		
-		Assert.assertEquals(element.getText(), expectedText);
+		Assert.assertEquals(element.getText(), expectedText,
+				String.format("Expected text '%s' not found!", expectedText));
+		logger.info(String.format("Found expected text '%s'", expectedText));
 	}
 	
 	public void waitForText(String locator, String text) {
@@ -81,11 +84,25 @@ public class BaseScreen {
 			changeKeyboard.click();
 			logger.info("Tapped change keyboard button");
 			keyOne = ad.findElement(By.xpath(uiMap.getProperty("route.keyboardKey"))).getAttribute("label");
-		}
-	
+		}	
 	}
+	
 	public void sendRus(WebElement el, String sequence){
 		goToRusKeyboard();
 		el.sendKeys(sequence);
 	}
+	
+	public void setWebViewContext() {
+		Set<String> contextNames = ad.getContextHandles();
+		logger.debug(String.format("Available contexts are: %s", contextNames.toString()));
+		ad.context(String.valueOf(contextNames.toArray()[1]));
+		logger.debug(String.format("Switched to %s context", String.valueOf(contextNames.toArray()[1])));
+	}
+	
+	public void setNativeContext() {
+		Set<String> contextNames = ad.getContextHandles();
+		logger.debug(String.format("Available contexts are: %s", contextNames.toString()));
+		ad.context(String.valueOf(contextNames.toArray()[0]));
+		logger.debug(String.format("Switched to %s context", String.valueOf(contextNames.toArray()[0])));
+	}	
 }

@@ -38,7 +38,7 @@
 			<parameter>2</parameter>
 			<parameter>6</parameter>
 			<parameter>0</parameter>
-			<parameter>Fields are not filled in! Passenger №1Adult: 'Name' 'Surname' 'Document series and number' 'E-mail' 'Gender' 'Birthdate' 'Birth place' Passenger №2Child 5-10: 'Name' 'Surname' 'Document series and number' 'Gender' 'Birth place'</parameter>
+			<parameter>Select the type of coupe</parameter>
 		</case>
 	</test>
 	<test name="testPassBirthDay">

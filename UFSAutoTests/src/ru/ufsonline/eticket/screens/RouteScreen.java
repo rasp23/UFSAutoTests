@@ -2,7 +2,6 @@ package ru.ufsonline.eticket.screens;
 
 import io.appium.java_client.AppiumDriver;
 
-import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,6 +15,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import ru.ufsonline.eticket.objects.SearchProperties;
+import ru.ufsonline.eticket.utils.TestObject;
 import ru.ufsonline.eticket.utils.Utils;
 
 public class RouteScreen extends NavBarScreen {
@@ -60,53 +60,55 @@ public class RouteScreen extends NavBarScreen {
 	
 	private WebElement find;
 	
-	private WebElement ready;
-	
 	private WebElement clearBtn;
 	
 	private final String DATE_PATTERN = "E d MMMM, yyyy"; 
 	
 	private Toolbar toolbar;
 	
+	private Picker picker;
+	
 	private WebElement key;
-
-
 	
 	public RouteScreen(AppiumDriver ad) {
 		super(ad);		
 		toolbar = new Toolbar(ad);
+		picker = new Picker(ad);
 	}
 
 	public void typeDeparture(String station) {
 		departure = ad.findElement(By.xpath(uiMap.getProperty("route.departure")));
 		departure.click();
 		sendEnglish(departure, station);
-		toolbar.ready();
+		logger.info(String.format("Typed '%s' in 'Departure station' field", station));
+		toolbar.ready();		
 	}
 	
 	public void typeDestination(String station) {
 		destination = ad.findElement(By.xpath(uiMap.getProperty("route.destination")));
 		destination.click();
 		sendEnglish(destination, station);
-		toolbar.ready();
+		logger.info(String.format("Typed '%s' in 'Destination station' field", station));
+		toolbar.ready();		
 	}
 	
 	public void invokePicker() {
 		dateButton = ad.findElement(By.xpath(uiMap.getProperty("route.date_btn")));	
-		dateButton.click();				
-		datePicker = ad.findElement(By.xpath(uiMap.getProperty("route.date_picker")));		
+		dateButton.click();		
+		logger.info("Opened date picker");
 	}
 	
 	public void pickDate(int shift) {	
 		Assert.assertTrue((shift >= -1) && (shift <= 58), "Verify test data: '-1<=shift<=58' !");
-		invokePicker();
-		datePicker.sendKeys(getRequiredDate(shift));
-		toolbar.ready();
+		invokePicker();		
+		picker.pickItem(getRequiredDate(shift));
 	}
 	
 	public String getPickerDates() {
 		invokePicker();
-		return datePicker.getAttribute("values");
+		String dates = datePicker.getAttribute("values");
+		logger.info("Picker items are: " + dates);
+		return dates;
 	}
 	
 	public void setFromTime(int hours) {	
@@ -117,6 +119,7 @@ public class RouteScreen extends NavBarScreen {
 			point = fromTime.getLocation();
 			ad.swipe(point.x, point.y, point.x + 5, point.y, 500);	
 		}
+		logger.info(String.format("From value set to %s hours", hours));
 	}
 	
 	public void setTillTime(int hours) {
@@ -127,6 +130,7 @@ public class RouteScreen extends NavBarScreen {
 			point = tillTime.getLocation();	
 			ad.swipe(point.x, point.y, point.x - 5, point.y, 500);	
 		}
+		logger.info(String.format("Till value set to %s hours", hours));
 	}
 	
 	public void setTime(String time) {
@@ -204,7 +208,65 @@ public class RouteScreen extends NavBarScreen {
 	public TrainScreen tapFind() {
 		find = ad.findElement(By.xpath(uiMap.getProperty("route.search")));
 		find.click();
+		logger.info("Tapped 'Find' button");
 		return new TrainScreen(ad);
+	}	
+	
+	/**
+	 * Returning a date using shift from current date and format pattern
+	 * 
+	 * @param shift
+	 * @return date of the specified format 
+	 */
+	private String getRequiredDate(int shift) {
+		Calendar dateToPick = new GregorianCalendar();
+		dateToPick.add(Calendar.DAY_OF_YEAR, shift);
+		SimpleDateFormat formatPattern = new SimpleDateFormat(DATE_PATTERN, Locale.US);
+		StringBuilder formattedDate = new StringBuilder(formatPattern.format(dateToPick.getTime()));
+		return formattedDate.replace(2, 3, "").toString();
+	}	
+	
+	public void fillSearchProperties(String sSearchProps){
+		SearchProperties searchProps = new SearchProperties(new TestObject(sSearchProps));
+		
+		typeDeparture(searchProps.getDeparture());
+		typeDestination(searchProps.getDestination());
+		pickDate(searchProps.getDepartureDate());
+		setTime(searchProps.getDepartureTime());
+		setAdults(searchProps.getAdults());
+		setChildren(searchProps.getChildren());
+		setInfants(searchProps.getInfants());
+	}
+
+	public void clearDeparture() {
+		departure = ad.findElement(By.xpath(uiMap.getProperty("route.departure")));
+		departure.click();
+		logger.info("Clicked 'Departure station' field");
+		clearField = ad.findElement(By.xpath(uiMap.getProperty("route.departureClearField")));
+		clearField.click();
+		logger.info("'Departure station' field cleared");
+	}
+	
+	public void  clearDestination() {
+		destination = ad.findElement(By.xpath(uiMap.getProperty("route.destination")));
+		destination.click();
+		logger.info("Clicked 'Destination station' field");
+		clearField = ad.findElement(By.xpath(uiMap.getProperty("route.destinationClearField")));
+		clearField.click();
+		logger.info("'Destination station' field cleared");
+	}
+	
+	public void setDeparture(String station){
+		departure = ad.findElement(By.xpath(uiMap.getProperty("route.departure")));
+		departure.click();
+		departure.sendKeys(station);
+	}
+	
+	public void setDestination(String station){
+		destination = ad.findElement(By.xpath(uiMap.getProperty("route.destination")));
+		destination.click();
+		//Utils.sleep(3000, "Avoiding JS error");
+		destination.sendKeys(station);
 	}
 	
 	public RouteScreen verifyDefaultDate() {
@@ -233,66 +295,16 @@ public class RouteScreen extends NavBarScreen {
 		for (int i = -1; i > expectedSize - 2; i++) {
 			Assert.assertEquals(lDates.get(i + 1), getRequiredDate(i), "Picker date is not as expected!");
 		}
-		
+		logger.info("Picker dates are as expected");		
 		return this;
 	}
 	
 	public RouteScreen verifyTime(String expectedTime) {
 		Assert.assertEquals(time.getText(), expectedTime, "Time is not as expected!");		
+		logger.info("Found expected time " + expectedTime);
 		return this;
 	}
 	
-	/**
-	 * Returning a date using shift from current date and format pattern
-	 * 
-	 * @param shift
-	 * @return date of the specified format 
-	 */
-	private String getRequiredDate(int shift) {
-		Calendar dateToPick = new GregorianCalendar();
-		dateToPick.add(Calendar.DAY_OF_YEAR, shift);
-		SimpleDateFormat formatPattern = new SimpleDateFormat(DATE_PATTERN, Locale.US);
-		StringBuilder formattedDate = new StringBuilder(formatPattern.format(dateToPick.getTime()));
-		return formattedDate.replace(2, 3, "").toString();
-	}	
-	
-	public void fillSearchProperties(SearchProperties searchProps){
-		typeDeparture(searchProps.getDeparture());
-		typeDestination(searchProps.getDestination());
-		pickDate(searchProps.getDepartureDate());
-		setTime(searchProps.getDepartureTime());
-		setAdults(searchProps.getAdults());
-		setChildren(searchProps.getChildren());
-		setInfants(searchProps.getInfants());
-	}
-
-	public void clearDeparture() {
-		departure = ad.findElement(By.xpath(uiMap.getProperty("route.departure")));
-		departure.click();
-		clearField = ad.findElement(By.xpath(uiMap.getProperty("route.departureClearField")));
-		clearField.click();
-	}
-	
-	public void  clearDestination() {
-		destination = ad.findElement(By.xpath(uiMap.getProperty("route.destination")));
-		destination.click();
-		clearField = ad.findElement(By.xpath(uiMap.getProperty("route.destinationClearField")));
-		clearField.click();
-	}
-	
-	public void setDeparture(String station){
-		departure = ad.findElement(By.xpath(uiMap.getProperty("route.departure")));
-		departure.click();
-		departure.sendKeys(station);
-	}
-	
-	public void setDestination(String station){
-		destination = ad.findElement(By.xpath(uiMap.getProperty("route.destination")));
-		destination.click();
-		//Utils.sleep(3000, "Avoiding JS error");
-		destination.sendKeys(station);
-	}
-
 	public RouteScreen verifyDepartureStation(String expectedDepartureStation) {
 		List<String> hintDepartureLst = new ArrayList<String>();
 		List<String> expectedDepartureStationLst = new ArrayList<String>();
@@ -302,12 +314,13 @@ public class RouteScreen extends NavBarScreen {
 		for (int i = 1; i <= hintNum; i++){
 			String hintLoc = uiMap.getProperty("route.departureHint").replace("NUM", String.valueOf(i));
 			String hintDeparture = ad.findElement(By.xpath(hintLoc)).getAttribute("name");
-			hintDepartureLst.add(hintDeparture);
-			logger.info("Calculating departure hint");
+			hintDepartureLst.add(hintDeparture);			
 		}
+		logger.info("Departure station hints are: " + hintDepartureLst.toString());
 		
 		for (int i = 0; i <hintNum-1; i++) {
-			Assert.assertEquals(hintDepartureLst.get(i), expectedDepartureStationLst.get(i), "Departure hints are not as expected!");
+			Assert.assertEquals(hintDepartureLst.get(i), expectedDepartureStationLst.get(i),
+					"Departure hints are not as expected!");
 		
 		}
 		return this;
@@ -322,13 +335,13 @@ public class RouteScreen extends NavBarScreen {
 		for (int i = 1; i <= hintNum; i++){
 			String hintLoc = uiMap.getProperty("route.destinationHint").replace("NUM", String.valueOf(i));
 			String hintDestination = ad.findElement(By.xpath(hintLoc)).getAttribute("name");
-			hintDestinationLst.add(hintDestination);
-			logger.info("Calculating destination hint");
-
+			hintDestinationLst.add(hintDestination);			
 		}
+		logger.info("Destination station hints are: " + hintDestinationLst.toString());
 		
 		for (int i = 0; i <hintNum-1; i++) {
-			Assert.assertEquals(hintDestinationLst.get(i), expectedDestinationStationLst.get(i), "Destination hints are not as expected!");
+			Assert.assertEquals(hintDestinationLst.get(i), expectedDestinationStationLst.get(i),
+					"Destination hints are not as expected!");
 		}
 		return this;
 	}
@@ -337,33 +350,36 @@ public class RouteScreen extends NavBarScreen {
 	public RouteScreen swapLocations(){
 		swapBtn = ad.findElement(By.name(uiMap.getProperty("route.swapButton")));
 		swapBtn.click();
-		logger.info("Taped swap locations button");
+		logger.info("Tapped swap locations button");
 		return this;
 	}
 	
-	public RouteScreen verifyLocations() {
+	public RouteScreen verifySwapLocations() {
 		String departureTxt = departure.getText();
 		String destinationTxt = destination.getText();
-		swapLocations();
-		Assert.assertEquals(ad.findElement(By.xpath(uiMap.getProperty("route.departure"))).getText(), destinationTxt, "Swap isn't working properly");
-		Assert.assertEquals(ad.findElement(By.xpath(uiMap.getProperty("route.destination"))).getText(), departureTxt, "Swap isn't working properly");
+		swapLocations();		
+		Assert.assertEquals(ad.findElement(By.xpath(uiMap.getProperty("route.departure"))).getText(),
+				destinationTxt, "Swap isn't working properly");
+		logger.info("Found correct text in 'Departure station' field: " + destinationTxt);
+		Assert.assertEquals(ad.findElement(By.xpath(uiMap.getProperty("route.destination"))).getText(),
+				departureTxt, "Swap isn't working properly");
+		logger.info("Found correct text in 'Destination station' field: " + departureTxt);		
 		return this;
 	}
 	
 	public RouteScreen tapFindWithMessage() {
 		find = ad.findElement(By.xpath(uiMap.getProperty("route.search")));
 		find.click();
-		logger.info("Tapped find button");
+		logger.info("Tapped 'Find' button");
 		return this;
 	}
 
 	public RouteScreen verifyMessageApp(String expectedText) {
-		String loc = "//UIAStaticText[contains(@label,'TEXT')]";
-		//String debug = ad.findElementByXPath("//UIAWindow[1]/UIAScrollView[1]/UIAStaticText[7]").getText();
 		try {
-			ad.findElementByXPath(loc.replace("TEXT", expectedText));			
+			ad.findElementByXPath(uiMap.getProperty("error.msg").replace("TEXT", expectedText));	
+			logger.error("Found expected error message: " + expectedText);
 		} catch(Exception e) {
-			Assert.fail();
+			Assert.fail(String.format("Error message '%s' was not found!", expectedText));
 		}		
 		
 		return this;

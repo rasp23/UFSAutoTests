@@ -1,21 +1,15 @@
 package ru.ufsonline.eticket.tests;
 
-import java.lang.reflect.Method;
-
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
-import ru.ufsonline.eticket.objects.SearchProperties;
 import ru.ufsonline.eticket.utils.GlobalProvider;
-import ru.ufsonline.eticket.utils.TestObject;
 
 public class TestCar extends TestBase {
 	
 	
-	public void navigateTo (String sSearchProps, String expectedTrain, String carType) {	
-		TestObject searchProps = new TestObject(sSearchProps);
+	public void navigateTo (String sSearchProps, String expectedTrain, String carType) {
 		route = main.tapPurchase();
-		route.fillSearchProperties(new SearchProperties(searchProps));		
+		route.fillSearchProperties(sSearchProps);		
 		train = route.tapFind();
 		String trainIndex = train.verifyTrainPresent(expectedTrain);	
 		car = train.selectCarType(trainIndex, carType);

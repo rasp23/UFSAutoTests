@@ -29,6 +29,7 @@ public class Picker extends BaseScreen {
 			wheel = ad.findElementByXPath(uiMap.getProperty("picker.wheel").
 					replace("NUM", String.valueOf(item.indexOf(s) + 1)));
 			wheel.sendKeys(s);
+			logger.info(String.format("Selected '%s' value from picker", s));
 		}
 		toolbar.ready();
  	}

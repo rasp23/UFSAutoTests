@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <test-config xmlns="http://utils.applique.com">	
-	<test name="testSuccessfullSearch">
+	<test name="testBuyTicket">
 		<case>		
 		    <parameter>Search002</parameter>	
 		    <parameter>020У</parameter>	    
 		    <parameter>2</parameter>
-		    <parameter>2</parameter>
+		    <parameter>1</parameter>
 		    <parameter>5</parameter>
 		    <parameter>30</parameter>
 		    <parameter>Indifferent</parameter>

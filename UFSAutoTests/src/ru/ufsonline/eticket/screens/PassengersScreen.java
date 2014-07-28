@@ -137,7 +137,7 @@ public class PassengersScreen extends NavBarScreen {
 	}
 	
 	public PassengersScreen selectGenderCoupe(String genderType) {
-		coupeGender =ad.findElement(By.xpath(uiMap.getProperty("passenger.genderCoupeType")));
+		coupeGender =ad.findElement(By.xpath(uiMap.getProperty("passenger.genderCoupe")));
 		coupeGender.click();
 		picker.pickItem(genderType);
 		return this;
@@ -189,6 +189,7 @@ public class PassengersScreen extends NavBarScreen {
 		} else {
 			disableCheckIn(num);
 		}
+		Utils.sleep(500, "Avoiding timeout error.");
 		
 		return this;
 	}
@@ -247,6 +248,7 @@ public class PassengersScreen extends NavBarScreen {
 		String neededDay = String.valueOf(curDay-Integer.valueOf(minusDayNum));
 		String neededDate = curMonth+neededDay+","+neededYear;
 		selectBirthDate(passNum,neededDate);
+		Utils.sleep(500, "Waiting for the button");
 		return this;
 	}
 
@@ -255,19 +257,19 @@ public class PassengersScreen extends NavBarScreen {
 		String birthdayDateCur = ad.findElement(By.xpath(uiMap.getProperty("passenger.birthday_date"))).getAttribute("value");
 		setCurrDateMinus(passNum, minusYearNum, minusDayNum);
 		String birthdayDateAfter = ad.findElement(By.xpath(uiMap.getProperty("passenger.birthday_date"))).getAttribute("value");
-		Assert.assertNotEquals(birthdayDateCur, birthdayDateAfter, "There is an opportunity to select date > current!");
+		Assert.assertEquals(birthdayDateCur, birthdayDateAfter, "There is an opportunity to select date > current!");
 		return this;
 
 	}
 
 	public PassengersScreen setCoupeNoGender() {
-		coupeGender =ad.findElement(By.xpath(uiMap.getProperty("passenger.genderCoupeType")));
+		coupeGender = ad.findElement(By.xpath(uiMap.getProperty("passenger.genderCoupe")));
 		coupeGender.click();
 		return this;
 	}
 
 	public void verifyGenderCoupe(String expectedGenderType) {
-		coupeGender =ad.findElement(By.xpath(uiMap.getProperty("passenger.genderCoupeType")));
+		coupeGender =ad.findElement(By.xpath(uiMap.getProperty("passenger.genderCoupe")));
 		String actualGenderType = coupeGender.getAttribute("value");
 		Assert.assertEquals(actualGenderType, expectedGenderType);
 	}
