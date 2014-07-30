@@ -96,6 +96,7 @@ public class TestRoute extends TestBase {
 	@Test(dataProvider = "GlobalProvider", dataProviderClass = GlobalProvider.class)
 	public void testEmptyFields(String msg){
 		route.doEmpty();
+		route.tapFindWithMessage();
 		route.verifyMessageApp(msg);
 	}
 	//7,8

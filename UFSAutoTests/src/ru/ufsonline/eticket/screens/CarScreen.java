@@ -27,11 +27,13 @@ public class CarScreen extends NavBarScreen {
 	public void selectCar(String carNumber) {
 		String locator = uiMap.getProperty("car.number").replace("NUM", carNumber);
 		WebElement car = ad.findElementByXPath(locator);
-		scroll(car, "right");
+		for (int i=1; i<Integer.valueOf(carNumber);i++)
+		{
+			scroll(car, "right");}
 	}
 	
 	public SeatSelectionHintDialog selectSeat() {
-		selectSeat = ad.findElementByAccessibilityId(uiMap.getProperty("car.selectseat"));
+		selectSeat = ad.findElement(By.xpath((uiMap.getProperty("car.selectseat"))));
 		selectSeat.click();
 		return new SeatSelectionHintDialog(ad);
 	}
