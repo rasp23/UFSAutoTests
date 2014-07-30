@@ -4,12 +4,17 @@ import java.lang.reflect.Method;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import ru.ufsonline.eticket.objects.Passenger;
+import ru.ufsonline.eticket.objects.SearchProperties;
+import ru.ufsonline.eticket.screens.NavBarScreen;
 //import ru.ufsonline.eticket.screens.PaymentDeatailsScreen;
 //import ru.ufsonline.eticket.screens.MainScreen.Language;
 import ru.ufsonline.eticket.utils.GlobalProvider;
+import ru.ufsonline.eticket.utils.TestObject;
+import ru.ufsonline.eticket.utils.Utils;
 
 public class TestPassengerData extends TestBase {
 	
@@ -17,7 +22,7 @@ public class TestPassengerData extends TestBase {
 	
 	private final String carType = "2";
 	
-	private final String carNumber = "3";
+	private final String carNumber = "6";
 	
 	private final String childrenNum = "1";
 	
@@ -44,7 +49,7 @@ public class TestPassengerData extends TestBase {
 	public void testEreg (){
 		passengers.verifyEregSwitchOn();
 	}
-	//
+	//15
 	@Test(dataProvider="GlobalProvider", dataProviderClass=GlobalProvider.class)
 	public void testPassInvalidDataMsg(String msg){
 		//navigateToPassData(searchNum, trainNum, carType, carNumber);
@@ -60,7 +65,7 @@ public class TestPassengerData extends TestBase {
 	//17
 	@Test(dataProvider="GlobalProvider", dataProviderClass=GlobalProvider.class)
 	public void testPassCurrBirth(String passNum, String minusYearNum, String minusDayNum, String msg){
-		passengers.setCurrDateMinus(passNum, minusYearNum, minusDayNum); 
+		passengers.setCurrDateMinus(passNum, minusYearNum, minusDayNum);
 		passengers.clickPaymentMsg();
 		passengers.verifyMessageApp(msg);
 	}
