@@ -11,8 +11,7 @@
 		</case>	
 	</test>
 	<test name="testEreg">
-		<case> 
-		    
+		<case>		    
 		</case>	
 	</test>
 	<test name="testPassInvalidDataMsg">

@@ -4,16 +4,12 @@ import java.lang.reflect.Method;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import ru.ufsonline.eticket.objects.Passenger;
-import ru.ufsonline.eticket.objects.SearchProperties;
-import ru.ufsonline.eticket.screens.NavBarScreen;
 //import ru.ufsonline.eticket.screens.PaymentDeatailsScreen;
 //import ru.ufsonline.eticket.screens.MainScreen.Language;
 import ru.ufsonline.eticket.utils.GlobalProvider;
-import ru.ufsonline.eticket.utils.TestObject;
 
 public class TestPassengerData extends TestBase {
 	
@@ -48,7 +44,7 @@ public class TestPassengerData extends TestBase {
 	public void testEreg (){
 		passengers.verifyEregSwitchOn();
 	}
-	//15
+	//
 	@Test(dataProvider="GlobalProvider", dataProviderClass=GlobalProvider.class)
 	public void testPassInvalidDataMsg(String msg){
 		//navigateToPassData(searchNum, trainNum, carType, carNumber);

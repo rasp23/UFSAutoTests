@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Full Regression Suite">
-	<test verbose="2" name="Full Regression Suite">
+<suite name="Regression Suite">
+	<test verbose="2" name="Regression Suite">
     	<packages>
 	        <package name="ru.ufsonline.eticket.tests"/>	        	        
     	</packages>        
